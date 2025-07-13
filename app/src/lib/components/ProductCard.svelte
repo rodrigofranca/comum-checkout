@@ -14,15 +14,20 @@
 	}
 </script>
 
-<div class="card bg-base-100 shadow-xl transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer" onclick={() => cart.addItem(product)}>
+<div class="card bg-base-100 shadow-md transition-shadow hover:shadow-lg">
 	<figure>
-		<img src={getImageUrl(product)} alt={product.title} class="h-64 w-full object-cover" />
+		<img
+			src={getImageUrl(product)}
+			alt={product.title}
+			class="h-64 w-full rounded-box object-cover"
+			loading="lazy"
+		/>
 	</figure>
-	<div class="card-body">
-		<h2 class="card-title">{product.title}</h2>
-		<p>Código: {product.product_id}</p>
-		<div class="card-actions justify-end">
-			<div class="badge badge-outline">R$ {product.price.toFixed(2)}</div>
+	<div class="card-body p-4">
+		<h2 class="card-title text-base-content">{product.title}</h2>
+		<div class="card-actions items-center justify-between">
+			<div class="text-xl font-bold text-primary">R$ {product.price.toFixed(2)}</div>
+			<button class="btn btn-circle btn-primary btn-sm" onclick={() => cart.addItem(product)}>+</button>
 		</div>
 	</div>
 </div>
