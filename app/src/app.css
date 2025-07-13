@@ -1,2 +1,65 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: tropical-light --default, light, dark;
+}
+
+@plugin "daisyui/theme" {
+  name: "tropical-light";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Base colors - inspired by sandy beaches and light tropical sky */
+  --color-base-100: oklch(98% 0.008 85); /* Warm off-white with slight yellow tint */
+  --color-base-200: oklch(95% 0.015 85); /* Light sand color */
+  --color-base-300: oklch(91% 0.025 85); /* Darker sand shade */
+  --color-base-content: oklch(25% 0.02 85); /* Dark brown text for good contrast */
+
+  /* Primary - Turquoise/Teal ocean inspired */
+  --color-primary: oklch(62% 0.18 185); /* Vibrant turquoise */
+  --color-primary-content: oklch(98% 0.005 185); /* Light content for primary */
+
+  /* Secondary - Coral/Sunset orange */
+  --color-secondary: oklch(68% 0.16 45); /* Warm coral orange */
+  --color-secondary-content: oklch(98% 0.005 45); /* Light content for secondary */
+
+  /* Accent - Tropical lime green */
+  --color-accent: oklch(75% 0.20 130); /* Bright lime green */
+  --color-accent-content: oklch(20% 0.02 130); /* Dark content for accent */
+
+  /* Neutral - Palm bark inspired */
+  --color-neutral: oklch(45% 0.03 85); /* Warm neutral brown */
+  --color-neutral-content: oklch(95% 0.005 85); /* Light content for neutral */
+
+  /* Info - Deep ocean blue */
+  --color-info: oklch(65% 0.15 220); /* Deep ocean blue */
+  --color-info-content: oklch(95% 0.005 220); /* Light content for info */
+
+  /* Success - Tropical forest green */
+  --color-success: oklch(70% 0.18 140); /* Vibrant forest green */
+  --color-success-content: oklch(95% 0.005 140); /* Light content for success */
+
+  /* Warning - Bright tropical sun yellow */
+  --color-warning: oklch(80% 0.15 85); /* Bright sunny yellow */
+  --color-warning-content: oklch(25% 0.02 85); /* Dark content for warning */
+
+  /* Error - Hibiscus red */
+  --color-error: oklch(62% 0.20 15); /* Vibrant hibiscus red */
+  --color-error-content: oklch(95% 0.005 15); /* Light content for error */
+
+  /* Border radius - Soft and organic feeling */
+  --radius-selector: 0.75rem; /* Rounded selectors */
+  --radius-field: 0.5rem; /* Moderately rounded fields */
+  --radius-box: 1rem; /* Well-rounded boxes */
+
+  /* Base sizes */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+
+  /* Border */
+  --border: 1px;
+
+  /* Effects for tropical warmth */
+  --depth: 1; /* Subtle shadow for depth */
+  --noise: 0; /* Clean, no noise */
+}

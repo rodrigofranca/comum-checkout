@@ -1,5 +1,6 @@
 <script lang="ts">
 	import pb from '$lib/pocketbase';
+	import cart from '$lib/cart.svelte';
 
 	export let product: any;
 
@@ -9,11 +10,11 @@
 			// Pega a primeira imagem do array
 			return pb.files.getURL(product, product.images[0]);
 		}
-		return 'https://via.placeholder.com/300x400?text=Sem+Imagem'; // Placeholder melhorado
+		return 'https://placehold.co/300x400?text=Sem+Imagem'; // Placeholder melhorado
 	}
 </script>
 
-<div class="card bg-base-100 shadow-xl">
+<div class="card bg-base-100 shadow-xl transition-transform duration-200 hover:scale-105 active:scale-95 cursor-pointer" onclick={() => cart.addItem(product)}>
 	<figure>
 		<img src={getImageUrl(product)} alt={product.title} class="h-64 w-full object-cover" />
 	</figure>

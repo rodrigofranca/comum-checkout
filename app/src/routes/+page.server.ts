@@ -1,36 +1,23 @@
+import { error } from '@sveltejs/kit';
 import type { PageServerLoad } from './$types';
 import pb from '$lib/pocketbase';
 
 export const load: PageServerLoad = async ({ url }) => {
-	const q = url.searchParams.get('q');
-
-	console.log(`Buscando por: ${q || '...'}`);
-
 	try {
-		const filter = ["status = 'disponível'"];
-		const params: { q?: string } = {};
-
-		if (q) {
-			filter.push(`(title ~ {:q} || product_id ~ {:q})`);
-			params.q = q;
-		}
+		// Carregar todo o inventory disponível inicialmente
+		const filter = "status = 'disponível'";
 
 		const products = await pb.collection('inventory').getFullList({
-			filter: filter.join(' && '),
-			filterParams: params,
+			filter: filter,
 			fields: 'collectionId,id,images,title,product_id,price',
 			sort: '-created'
 		});
 
 		return {
-			q,
 			products
 		};
 	} catch (err) {
 		console.error('Erro ao buscar dados do PocketBase:', err);
-		return {
-			q,
-			products: []
-		};
+		throw error(500, 'Failed to fetch products');
 	}
 };
