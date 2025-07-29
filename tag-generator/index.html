@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Etiquetas</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="no-print">
+        <h1>Gerador de Etiquetas</h1>
+        <p>Cole o seu JSON abaixo. O JSON deve ser uma lista de objetos, onde cada objeto representa um produto e deve conter as chaves "name", "price" e "url".</p>
+        <textarea id="json-input" rows="10" placeholder='[
+    {
+        "name": "Produto de Exemplo 1",
+        "price": "R$ 19,99",
+        "url": "https://example.com/produto1"
+    },
+    {
+        "name": "Produto de Exemplo 2",
+        "price": "R$ 29,90",
+        "url": "https://example.com/produto2"
+    }
+]'></textarea>
+        <button id="generate-btn">Gerar Etiquetas</button>
+    </div>
+
+    <div id="labels-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

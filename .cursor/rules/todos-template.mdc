@@ -1,0 +1,67 @@
+---
+description: descreve como criar todos baseados no plano de ação
+globs:
+alwaysApply: false
+---
+### **Template para Lista de Tarefas (TODOs) de Feature**
+
+Ao criar a lista de tarefas para uma nova feature, utilize este template para detalhar cada passo necessário, quebrando o trabalho em ações claras e verificáveis. As tarefas devem corresponder às fases definidas no Plano de Implementação.
+
+Use como referência a lista de tarefas da feature de listagem de inventário: [FEAT-01_TODOS.md](mdc:docs_ia/PDA/FEAT-01_TODOS.md)
+
+**IMPORTANTE** Todos os TODOs devem ser criados em /docs_ia/PDA
+**IMPORTANTE** Verifique se o arquivo de tarefas já existe e use o mesmo
+**IMPORTANTE** Nunca crie arquivos separados para as fases de um mesmo contexto
+
+---
+
+### **[ID da Feature]: [Nome da Feature]**
+
+#### **Fase 1: Configuração e Estrutura do Projeto**
+
+### **TODOs: 1.1 [Primeiro Sub-tópico da Fase 1]**
+
+- [ ] **Ação 1:** Descrição da primeira tarefa.
+- [ ] **Ação 2:** Descrição da segunda tarefa.
+- [ ] **Ação 3:** Descrição da terceira tarefa.
+
+### **TODOs: 1.2 [Segundo Sub-tópico da Fase 1]**
+
+- [ ] **Ação 1:** Descrição da primeira tarefa.
+- [ ] **Ação 2:** Descrição da segunda tarefa.
+
+---
+
+#### **Fase 2: Desenvolvimento dos Componentes da Interface (UI)**
+
+### **TODOs: 2.1 [Nome do Primeiro Componente]**
+
+- [ ] **Criar o arquivo do componente:** Definir o caminho do arquivo (ex: `src/lib/components/...`).
+- [ ] **Definir as propriedades (`props`):** Especificar quais dados o componente receberá.
+- [ ] **Estruturar o layout:** Descrever a estrutura HTML/UI e quais bibliotecas usar (ex: `daisyUI`).
+- [ ] **Implementar lógica de exibição:** Detalhar como os dados serão renderizados.
+
+### **TODOs: 2.2 [Nome do Segundo Componente]**
+
+- [ ] **Criar o arquivo do componente.**
+- [ ] **Estruturar o formulário/elemento interativo.**
+- [ ] **Gerenciar o estado do componente.**
+- [ ] **Implementar a lógica de interação/submissão.**
+
+---
+
+#### **Fase 3: Lógica de Negócio e Integração**
+
+### **TODOs: 3.1 [Primeiro Sub-tópico da Fase 3, ex: Busca de Dados]**
+
+- [ ] **Criar o `endpoint` ou serviço:** Especificar o arquivo que conterá a lógica (ex: `+page.server.ts`).
+- [ ] **Implementar a função principal:** (ex: `load` no SvelteKit).
+- [ ] **Construir a consulta/lógica de negócio:** Detalhar os passos para filtrar, ordenar e buscar os dados.
+- [ ] **Otimizar a consulta:** Especificar quais campos (`fields`) devem ser retornados.
+- [ ] **Retornar os dados para a UI.**
+
+### **TODOs: 3.2 [Segundo Sub-tópico da Fase 3, ex: Montagem da Página]**
+
+- [ ] **Acessar os dados:** Descrever como a página receberá os dados da lógica de negócio.
+- [ ] **Renderizar os componentes:** Detalhar quais componentes serão usados.
+- [ ] **Passar as propriedades (`props`):** Especificar como os dados serão passados para os componentes filhos.

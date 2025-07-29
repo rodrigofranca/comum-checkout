@@ -1,0 +1,63 @@
+---
+description: descreve como criar um plano de ação
+globs:
+alwaysApply: false
+---
+### **Template para Plano de Ação de Implementação**
+
+Ao criar um novo plano de implementação para uma feature, siga esta estrutura baseada em fases. O objetivo é quebrar o desenvolvimento em etapas lógicas e gerenciáveis.
+
+Use como referência o plano de implementação da feature de listagem de inventário: [FEAT-01_Implementation_Plan.md](mdc:docs_ia/PDA/FEAT-01_Implementation_Plan.md)
+
+**IMPORTANTE** Todos os planos de ação devem ser criados em /docs_ia/PDA
+
+---
+
+### **Plano de Ação: [Nome da Feature] ([ID da Feature])**
+
+#### **Fase 1: Configuração e Estrutura do Projeto**
+
+Nesta fase inicial, o foco é preparar o ambiente de desenvolvimento e a base do projeto.
+
+1.  **Análise do Ambiente:**
+    *   Verifique a estrutura de pastas existente.
+    *   Analise o `package.json` ou arquivo de dependências equivalente para identificar o que já está instalado.
+    *   Liste e instale as dependências necessárias (ex: SDKs de API, bibliotecas de UI, etc.).
+
+2.  **Inicialização de Serviços e Clientes:**
+    *   Crie módulos para centralizar a conexão com serviços externos (ex: APIs, bancos de dados).
+    *   Configure e exporte instâncias de clientes (ex: cliente PocketBase, cliente de banco de dados).
+
+#### **Fase 2: Desenvolvimento dos Componentes da Interface (UI)**
+
+Nesta fase, construa os componentes visuais da feature, focando em reutilização e clareza.
+
+1.  **Componente A (ex: `ProductCard.svelte`):**
+    *   **Função:** Descreva o propósito do componente.
+    *   **Implementação:** Detalhe os passos técnicos, como propriedades que ele recebe, quais informações exibe e como interage com outros elementos.
+
+2.  **Componente B (ex: `SearchBar.svelte`):**
+    *   **Função:** Descreva o propósito do componente.
+    *   **Implementação:** Detalhe os passos técnicos, como a estrutura do formulário, o gerenciamento de estado e como ele dispara ações (ex: submissão de busca).
+
+3.  **Componente C (ex: `InventoryGrid.svelte`):**
+    *   **Função:** Descreva o propósito do componente orquestrador.
+    *   **Implementação:** Detalhe como ele organiza outros componentes e gerencia o layout (ex: usando um grid e iterando sobre uma lista de dados).
+
+#### **Fase 3: Lógica de Negócio e Integração**
+
+Esta é a fase final, onde a UI é conectada à lógica de negócio e às fontes de dados.
+
+1.  **Busca de Dados (Data Fetching):**
+    *   Defina onde a busca de dados ocorrerá (ex: em um endpoint de servidor como `+page.server.ts` no SvelteKit).
+    *   **Lógica da função de busca:**
+        1.  Leia parâmetros de entrada (ex: da URL).
+        2.  Construa dinamicamente a consulta para a API ou banco de dados.
+        3.  Aplique filtros obrigatórios (ex: `status = 'disponível'`).
+        4.  Adicione filtros condicionais baseados na entrada do usuário.
+        5.  Otimize a consulta para buscar apenas os campos necessários (`fields`).
+        6.  Retorne os dados para o componente da página.
+
+2.  **Montagem da Página/View Principal:**
+    *   Descreva como a página principal irá receber e utilizar os dados da função de busca.
+    *   Detalhe como os componentes da Fase 2 serão renderizados e como os dados serão passados para eles.

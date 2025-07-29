@@ -1,5 +1,5 @@
 <script lang="ts">
-	import SearchBar from '$lib/components/SearchBar.svelte';
+	import SearchBar from '$lib/components/forms/SearchBar.svelte';
 	import InventoryGrid from '$lib/components/InventoryGrid.svelte';
 	export let data;
 </script>

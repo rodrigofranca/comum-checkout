@@ -29,6 +29,12 @@
 			path: '/test/cart',
 			description: 'Testa o módulo de estado do carrinho com runes do Svelte 5',
 			phase: 'Fase 1.2'
+		},
+		{
+			name: 'Fluxo de Desconto',
+			path: '/test/discount-flow',
+			description: 'Testa o fluxo completo de aplicação de descontos (fixo e percentual).',
+			phase: 'FEAT-03'
 		}
 	];
 </script>
@@ -69,7 +75,14 @@
 			<li><strong>SearchBar:</strong> Testa a funcionalidade de busca com filtros em tempo real</li>
 			<li><strong>InventoryGrid:</strong> Testa a responsividade do grid em diferentes cenários</li>
 			<li><strong>Data Fetching:</strong> Testa a implementação do servidor de busca de dados com filtros</li>
-			<li><strong>Cart:</strong> Testa o módulo de estado do carrinho com funcionalidades de adicionar itens e calcular totais</li>
+			<li>
+				<strong>Cart:</strong> Testa o módulo de estado do carrinho com funcionalidades de adicionar
+				itens e calcular totais
+			</li>
+			<li>
+				<strong>Fluxo de Desconto:</strong> Testa a aplicação de descontos fixos e percentuais no
+				carrinho.
+			</li>
 		</ul>
 	</div>
 </div>

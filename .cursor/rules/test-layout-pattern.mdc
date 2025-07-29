@@ -1,0 +1,141 @@
+---
+description: descreve como criar novos testes
+globs:
+alwaysApply: false
+---
+# Padrão de Layout de Testes
+
+## Estrutura Principal de Testes
+
+O arquivo principal de testes está localizado em [app/src/routes/test/+page.svelte](mdc:app/src/routes/test/+page.svelte) e serve como hub central para todos os testes do projeto.
+
+## Estrutura do Array de Testes
+
+Cada teste deve seguir a seguinte estrutura no array `tests`:
+
+```typescript
+{
+    name: 'NomeDoTeste',           // Nome do componente/funcionalidade
+    path: '/test/caminho-do-teste', // Rota para a página de teste
+    description: 'Descrição do que é testado', // Descrição detalhada
+    phase: 'Fase X.Y'             // Fase do desenvolvimento
+}
+```
+
+## Convenções de Nomenclatura
+
+- **name**: PascalCase para nomes de componentes (ex: `ProductCard`, `SearchBar`)
+- **path**: kebab-case para rotas (ex: `/test/product-card`, `/test/search-bar`)
+- **description**: Frase descritiva começando com "Testa..."
+- **phase**: Formato "Fase X.Y" onde X é a fase principal e Y é a subfase
+
+## Layout Padrão da Página Principal
+
+```svelte
+<div class="p-4">
+    <h1 class="text-3xl font-bold mb-6">Página de Testes - Componentes</h1>
+
+    <div class="mb-8">
+        <p class="text-gray-600">Descrição geral dos testes</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {#each tests as test}
+            <div class="card bg-base-100 shadow-xl">
+                <div class="card-body">
+                    <h2 class="card-title">
+                        {test.name}
+                        <div class="badge badge-secondary">{test.phase}</div>
+                    </h2>
+                    <p class="text-sm text-gray-600 mb-4">{test.description}</p>
+                    <div class="card-actions justify-end">
+                        <a href={test.path} class="btn btn-primary">
+                            Executar Teste
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {/each}
+    </div>
+
+    <div class="mt-8 p-4 bg-info bg-opacity-10 rounded-lg">
+        <h3 class="text-lg font-semibold mb-2">Como usar os testes:</h3>
+        <ul class="list-disc list-inside text-sm text-gray-600 space-y-1">
+            <!-- Lista de instruções para cada teste -->
+        </ul>
+    </div>
+</div>
+```
+
+## Estrutura das Páginas de Teste Individuais
+
+Cada página de teste deve estar em `/app/src/routes/test/nome-do-teste/+page.svelte` e seguir:
+
+### 1. Cabeçalho Padrão
+```svelte
+<div class="container mx-auto p-8 max-w-6xl">
+    <div class="mb-8">
+        <h1 class="text-4xl font-bold text-base-content mb-2">Teste do [Nome]</h1>
+        <p class="text-base-content/70 text-lg">Descrição detalhada do teste</p>
+    </div>
+```
+
+### 2. Controles de Teste
+```svelte
+<div class="mb-8">
+    <h2 class="text-2xl font-semibold mb-4 text-base-content">Controles de Teste</h2>
+    <div class="flex flex-wrap gap-3">
+        <button class="btn btn-primary btn-lg" onclick={runAllTests}>
+            🚀 Executar Todos os Testes
+        </button>
+        <!-- Outros botões com ícones -->
+    </div>
+</div>
+```
+
+### 3. Seções de Teste
+- **Estado Atual**: Mostra informações do estado atual
+- **Componentes/Dados de Teste**: Elementos para interação
+- **Log de Testes**: Área para exibir resultados dos testes
+
+## Padrões de Styling
+
+### DaisyUI Classes Obrigatórias
+- `container mx-auto p-8 max-w-6xl` para container principal
+- `btn btn-primary btn-lg` para botões primários
+- `card bg-base-100 shadow-xl` para cards
+- `text-base-content` para texto principal
+- `text-base-content/70` para texto secundário
+
+### Responsividade
+- Grid responsivo: `grid-cols-1 md:grid-cols-2 lg:grid-cols-3`
+- Gaps consistentes: `gap-6` para grids, `gap-3` para botões
+- Margins bottom: `mb-8` para seções principais, `mb-4` para subtítulos
+
+## Adicionando Novos Testes
+
+Para adicionar um novo teste:
+
+1. **Criar a pasta**: `/app/src/routes/test/nome-do-teste/`
+2. **Criar o arquivo**: `+page.svelte` seguindo o padrão
+3. **Adicionar no array**: Incluir entrada no array `tests` em [app/src/routes/test/+page.svelte](mdc:app/src/routes/test/+page.svelte)
+4. **Atualizar instruções**: Adicionar linha na seção "Como usar os testes"
+
+## Funcionalidades Obrigatórias
+
+### Botões com Ícones
+- Usar ícones emoji apenas em botões
+- Manter texto descritivo junto ao ícone
+- Exemplos: `🚀 Executar`, `🗑️ Limpar`, `📝 Log`
+
+### Log de Testes
+- Usar `font-mono` para logs
+- Implementar cores condicionais para SUCESSO/ERRO
+- Scroll automático para logs longos
+
+### Estado Reativo
+- Usar runes do Svelte 5 (`$state`, `$derived`, etc.)
+- Manter estado consistente entre componentes
+- Implementar limpeza de estado quando necessário
+
+Este padrão garante consistência visual e funcional em todos os testes do projeto.

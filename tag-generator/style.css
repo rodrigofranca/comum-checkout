@@ -1,0 +1,117 @@
+body {
+    font-family: sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+.no-print {
+    margin-bottom: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+#labels-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 10px;
+    padding: 10px;
+    background-color: white;
+    border: 1px dashed #ccc;
+}
+
+.label {
+    border: 1px solid #000;
+    padding: 15px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    height: 300px; /* Altura fixa para consistência */
+}
+
+.label .product-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.label .price {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.label .qr-code {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.label .qr-code img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+
+@media print {
+    body {
+        margin: 0;
+        background-color: white;
+    }
+
+    .no-print {
+        display: none;
+    }
+
+    #labels-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Duas colunas para impressão */
+        gap: 0;
+        border: none;
+        width: 210mm; /* Largura de uma folha A4 */
+        height: 297mm; /* Altura de uma folha A4 */
+        page-break-after: always;
+    }
+
+    .label {
+        border: 1px solid #000;
+        width: 90mm;  /* Largura da etiqueta */
+        height: 50mm; /* Altura da etiqueta */
+        margin: 5mm;
+        padding: 5px;
+        page-break-inside: avoid;
+    }
+}

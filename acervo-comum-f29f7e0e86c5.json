@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "acervo-comum",
+  "private_key_id": "f29f7e0e86c5ef066782560c6c1d8d0b3795b436",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQCRm4CUEPxa5bP4\nrmdarFYlW6Joch3VRjL9czDXj3wo30UDyOYX7fzi0+t+HS61NeRgAznj45bvoTHD\n5H6AMsJiacTVMcaYl1Tx1XKuhk4QGX7DIDWTUwinCOCo5NM+MwlRSrC2gG/qK92V\npg8F727L2R8GypjmG1L53t8VKjbfaad/kDM9EaOwlikzFge11PMg3Fkf2H2+O9Pb\nd+11CbUOj7H4nQyksK5sODFmHm/v37tih0OqLZQ/LJZa7Awuzt+CiucXsxzBQ3yh\ncI29WE0oNocmK1TdpB0o3O+cGKJwadhbdK1kHNB9RplgDprl1CQOU4LogTXk69Fa\nh8D5Q/YzAgMBAAECggEAAXZAOjxZbEg2IF8P5pcoXkOnQ8kxh3ym8mh/qwpjwr1L\nIhiYRtE64sQh7yg32dXqrxQZNrKIR2uk5kSbCIp57ScGtOVFCy8pySvNdPcgPYUk\nAq2GHC6PPa4XI1r4y/0TMN/BGnP7q6w5E1GRgQvAXweVCipqkpTfpmaYcsvztRaE\nmUuqX8NiwHlS8yhYe2QQNUSRdj6oPBaqxmCvaCG2SmarG75K/AokINEj2W71bGIa\naCgdpMLG3k3V6T17Stb/K+G6HFU5stjhMC8+cK8rqs+fMw0P+3HCEe8S8HiuCHjv\nWR2fZpuTns3V3syZpRLaNNgKNDzU/hX/pLHJzR3mUQKBgQDFI1li8kHIWJuOhxPP\n9HqXAF1EHZWiA40Y6txQa5WSZcZnNu69zzSvAc9/XPQr3kQ/zN6gc3jMAepTeMK/\nNM50SwIxka96TuhIGgnJRSIvbNePkzRsSEPlBs49ARDcq+/BI8qKUUanRobfX1gF\nrBftvrGDQOstzCX5Zz+G69jgvwKBgQC9FU2B7MDfSfF9sbrFeY3fHE3G4YizwVWw\navtnzqjiCB8TWaV3KqOdx0oW97twrWoncnCw4PMs+Un1bnVZTSXDlI7v291+oApE\ndI78hZc+a4BsB5R2yA3tjcU3D+VW06mgJWPn2OAwEZxy8oYqwCffR8F+YScPhVLJ\nrLHbjF4TjQKBgQCtehDjsHlQ2yBwSM+XdPUXwhtQoJQXUPauEaa0Iigp/uOb2kw2\nvYsH4hj9ZAf+PoZiel8CZPrM03an46HEbqyqy4Lvqdr4T026fSdVdT/C6g2663f7\nPZB5jwaXykNTXP4LQPqvwxvggYCYOieUPj+EWAWPkeYik/5qvX+6s/pSswKBgQCI\n+A+HWGt21Gec98wmFKGSxzwIH4QZQqnB/B1V2zw3UE7Cg6P7KOYQ+zZOYPJk8xn8\nrUe4uZsuLv9GTNew8tOyU8EfO5O9kE0fvZd+kX839kO2/d6sFMsSFCqScm9dcEJm\nAe/XGSF9cKR2F/zcpwm7Eo218MaM1bVc5j6InavgWQKBgQC/R/hHm6NL4+5q102Y\n451kxgLiTLrR1mf2SgNPamddCitsnK/452O4CexD5opt5Tyd8yBSlDzLs5zB+po1\n52qm0atO7qiWxAfZgOX8pckqqhn/xh2vZgGXGLPeyNCB1Bt6PMzT2+Xh/w/FeGNG\nMQf9QsIc0h/SShqjqv1wrO8NDQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "import-image@acervo-comum.iam.gserviceaccount.com",
+  "client_id": "102378817715465463738",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/import-image%40acervo-comum.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

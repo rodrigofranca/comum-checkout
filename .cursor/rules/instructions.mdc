@@ -1,0 +1,42 @@
+---
+description:
+globs:
+alwaysApply: true
+---
+- sempre responda em pt-br
+
+- **IMPORTANTE** Ao concluir uma fase, nunca inicie uma próxima fase sozinho
+- **IMPORTANTE** Para usar runes em arquivo .ts ele deve ser .svelte.ts
+- **IMPORTANTE** runes não precisam de import, elas são inseridas automaticamente pelo compilador do svelte
+
+- Sempre use daisyUI com [tropical-theme.mdc](mdc:.cursor/rules/tropical-theme.mdc) para construção da interface, use context7
+- Em fases ou planos de ação, nunca execute a próxima fase automaticamente
+- Sempre use pnpm
+- as implementações das telas devem ser feitas em /app
+- teste devem seguir o padrão usado em /app/src/routes/test
+- para carregamento de imagens verifique o arquivo /app/docs/INVENTORY_API.md
+- para uso de coleção inventory verifique o arquivo /app/docs/INVENTORY_API.md
+- nunca execute a próxima tarefa de um TODO automaticamente
+
+- Para criar tarefas, use @todos-template.mdc
+- Para criar plano de ação, use @implementation-plan-template.mdc
+
+# FLUXO DE DESENVOLVIMENTO
+1. SEMPRE criar plano de ação
+2. SEMPRE criar tarefas pra cada etapa do plano de ação
+3. AGUARDAR ordem para iniciar desenvolvimento
+4. EXECUTAR tarefas ação por ação
+5. NUNCA executar a próxima ação automaticamente
+6. SEMPRE marcar as tarefas como concluidas
+
+**SOBRE SVELTE 5**
+- Sempre use svelte 5 com runes, use context7
+- use onclick no lugar de on:click
+- não use stores, use runes
+- para usar runes dentro de *.ts o arquivo deve ser *.svelte.ts
+- **SEMPRE** use $state para valores reativos
+- **SEMPRE** use let quando criar um $state
+
+**PARA claude-4-sonnet**
+- NUNCA crie testes adicionais a esmo, tenha foco.
+- NUNCA crie documentos adicionais a esmo, tenha foco.

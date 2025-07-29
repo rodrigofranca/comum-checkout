@@ -1,0 +1,33 @@
+{
+  "name": "import-drive-images",
+  "version": "1.0.0",
+  "description": "Script para importar imagens do Google Drive para o PocketBase de forma eficiente e robusta",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node import-drive-images.js",
+    "debug": "node import-drive-images.js --debug",
+    "test": "node import-drive-images.js --debug",
+    "dev": "node --inspect import-drive-images.js --debug"
+  },
+  "keywords": [
+    "google-drive",
+    "pocketbase",
+    "image-import",
+    "automation",
+    "batch-processing"
+  ],
+  "author": "Comum Checkout Team",
+  "license": "MIT",
+  "dependencies": {
+    "googleapis": "^latest",
+    "pocketbase": "^latest",
+    "dotenv": "^latest"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "bin": {
+    "import-drive-images": "./index.js"
+  }
+}

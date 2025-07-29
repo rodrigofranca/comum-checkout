@@ -2,18 +2,20 @@
 
 | **Documento:** | PRD: Checkout Comum (POC) |
 | :--- | :--- |
-| **Versão:** | 1.1 |
+| **Versão:** | 1.2 |
 | **Status:** | Aprovado |
 | **Autor:** | Arquiteto de Software AI |
 | **Stakeholder Principal:** | rfranca-pc |
-| **Última Atualização:** | 2024-01-15 |
-| **Decisões Relacionadas:** | ADR-001: Implementação de Interface de Listagem de Inventário |
+| **Última Atualização:** | 2025-01-17 |
+| **Decisões Relacionadas:** | ADR-001: Implementação de Interface de Listagem de Inventário<br/>ADR-002: Adição de Opção de Desconto por Porcentagem |
 
 #### **1. Visão Geral e Resumo**
 
 Este documento detalha os requisitos para uma Prova de Conceito (POC) de um aplicativo de checkout para brechós, batizado de "Checkout Comum". O objetivo é criar um sistema rápido e minimalista para registrar vendas durante eventos, como feiras. A solução validará a viabilidade de um fluxo de trabalho digital para substituir processos manuais, agilizando o atendimento e permitindo a captura de dados básicos de clientes para futuros relacionamentos.
 
 **Atualização v1.1:** Conforme documentado no ADR-001, a implementação inicial priorizará uma interface de listagem visual de inventário para acelerar o desenvolvimento da POC, mantendo a leitura de QR codes como funcionalidade planejada para a Fase 2.
+
+**Atualização v1.2:** Conforme documentado no ADR-002, expandida a funcionalidade de desconto (FEAT-03) para incluir tanto desconto por valor fixo quanto por porcentagem, oferecendo maior flexibilidade operacional para cenários de venda em brechós.
 
 #### **2. O Problema**
 
@@ -53,7 +55,7 @@ A POC se concentrará no fluxo essencial de venda.
 | **FEAT-01A** | **Seleção de Itens da Lista** | O usuário deve poder adicionar itens ao carrinho clicando diretamente nos produtos exibidos na listagem do inventário. | Obrigatório |
 | **FEAT-01B** | **Busca e Filtros** | A interface deve incluir barra de busca para localizar itens por nome ou código, e filtros básicos como faixa de preço. | Obrigatório |
 | **FEAT-02** | **Gerenciamento do Carrinho** | A interface deve exibir uma lista clara dos itens adicionados, o subtotal e a quantidade. O usuário deve poder remover um item do carrinho. | Obrigatório |
-| **FEAT-03** | **Aplicação de Desconto** | Deve haver uma opção para aplicar um desconto de valor fixo (R$) sobre o subtotal da compra. | Obrigatório |
+| **FEAT-03** | **Aplicação de Desconto** | O sistema deve oferecer duas modalidades de desconto sobre o subtotal da compra: **(A) Valor fixo em reais (R$)** - permitindo inserir um valor específico a ser descontado, e **(B) Porcentagem (%)** - permitindo aplicar um desconto percentual de 0% a 100%. O usuário deve poder alternar entre as duas modalidades através de uma interface intuitiva (toggle). | Obrigatório |
 | **FEAT-04** | **Coleta de Dados do Cliente** | O usuário deve poder inserir o nome e/ou o e-mail do comprador. O campo de e-mail é obrigatório apenas para o envio do recibo. | Obrigatório |
 | **FEAT-05** | **Seleção de Forma de Pagamento** | O usuário deve poder selecionar a forma de pagamento (Débito, Crédito, PIX) para fins de registro. Nenhuma transação financeira será processada. | Obrigatório |
 | **FEAT-06** | **Finalização da Venda** | Um botão "Finalizar Compra" deve consolidar a transação, registrando-a no sistema e disparando as ações de pós-venda. | Obrigatório |
@@ -81,7 +83,7 @@ A POC se concentrará no fluxo essencial de venda.
 4.  **[NOVO]** Ela clica no item "Camisa Jeans Vintage - R$ 50,00" que é automaticamente adicionado ao carrinho. Um contador no canto superior direito indica "1 item no carrinho".
 5.  **[NOVO]** Helena busca por "Bolsa" e clica em "Bolsa de Couro - R$ 80,00". O contador atualiza para "2 itens".
 6.  **[NOVO]** Helena acessa o carrinho clicando no botão flutuante. O carrinho mostra subtotal de R$ 130,00.
-7.  Helena oferece um desconto. Ela toca em "Adicionar Desconto" e insere "10,00". O total é recalculado para R$ 120,00.
+7.  **[ATUALIZADO v1.2]** Helena oferece um desconto. Ela toca em "Aplicar Desconto", seleciona o tipo de desconto (alterna entre "R$" e "%"), e insere "10,00" para desconto fixo ou "10" para desconto percentual. O total é recalculado automaticamente (R$ 120,00 para desconto fixo de R$ 10,00 ou R$ 117,00 para desconto de 10%).
 8.  Ela pergunta o nome e e-mail de Mariana e os insere nos campos apropriados.
 9.  Mariana informa que pagará com PIX. Helena seleciona "PIX" na interface.
 10. Helena clica em "Finalizar Compra".
@@ -147,4 +149,5 @@ Conforme documentado no ADR-001, a decisão de implementar listagem visual será
 
 **Histórico de Versões:**
 - **v1.0:** Versão inicial com foco em QR codes
-- **v1.1:** Atualização para priorizar listagem visual de inventário (ADR-001) 
+- **v1.1:** Atualização para priorizar listagem visual de inventário (ADR-001)
+- **v1.2:** Expansão da FEAT-03 para incluir desconto por porcentagem além do valor fixo (ADR-002) 

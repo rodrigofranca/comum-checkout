@@ -1,0 +1,81 @@
+---
+description: descreve como usar o tropical theme para criar páginas e componentes
+globs:
+alwaysApply: false
+---
+# Tropical Theme - Regra de Uso
+
+## Documentação Principal
+Para implementação completa do tema tropical, consulte SEMPRE:
+- [TROPICAL_THEME.md](mdc:app/docs/TROPICAL_THEME.md) - Documentação completa
+- [TROPICAL_THEME_README.md](mdc:app/docs/TROPICAL_THEME_README.md) - Guia rápido
+- [TROPICAL_THEME_MIGRATION.md](mdc:app/docs/TROPICAL_THEME_MIGRATION.md) - Guia de migração
+
+## Configuração Básica
+
+### CSS Principal
+```css
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: tropical-light --default, light, dark;
+}
+
+@plugin "daisyui/theme" {
+  name: "tropical-light";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Cores principais - Mar turquesa, Coral, Lime */
+  --color-primary: oklch(62% 0.18 185);
+  --color-secondary: oklch(68% 0.16 45);
+  --color-accent: oklch(75% 0.20 130);
+  --color-neutral: oklch(45% 0.03 85);
+
+  /* Cores base - Areia da praia */
+  --color-base-100: oklch(98% 0.008 85);
+  --color-base-200: oklch(95% 0.015 85);
+  --color-base-300: oklch(91% 0.025 85);
+  --color-base-content: oklch(25% 0.02 85);
+
+  /* Estados - Oceano, Floresta, Sol, Hibisco */
+  --color-info: oklch(65% 0.15 220);
+  --color-success: oklch(70% 0.18 140);
+  --color-warning: oklch(80% 0.15 85);
+  --color-error: oklch(62% 0.20 15);
+}
+```
+
+### HTML Base
+```html
+<html data-theme="tropical-light">
+```
+
+## Boas Práticas
+
+### ✅ Sempre usar:
+- Classes semânticas do DaisyUI: `btn-primary`, `btn-secondary`, `alert-success`
+- Cores de conteúdo apropriadas: `text-primary-content`, `text-base-content`
+- Componentes nativos: `card`, `input`, `select`, `alert`
+
+### ❌ Evitar:
+- Cores hardcoded: `bg-blue-500`, `text-red-600`
+- CSS customizado desnecessário
+- Sobrescrever variáveis sem consultar documentação
+
+## Componentes Principais
+- **Botões**: `btn btn-primary`, `btn btn-secondary`, `btn btn-accent`
+- **Cards**: `card bg-base-100`, `card bg-primary text-primary-content`
+- **Formulários**: `input input-bordered`, `select select-bordered`
+- **Alertas**: `alert alert-success`, `alert alert-error`
+
+## Controle de Tema
+```javascript
+// Aplicar tema
+document.documentElement.setAttribute('data-theme', 'tropical-light');
+
+// Persistir no localStorage
+localStorage.setItem('theme', 'tropical-light');
+```
+
+**IMPORTANTE**: Para implementações específicas, customizações ou migrações, consulte a documentação completa em [app/docs/](mdc:app/docs).

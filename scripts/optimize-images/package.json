@@ -1,0 +1,35 @@
+{
+  "name": "optimize-images",
+  "version": "1.0.0",
+  "description": "Script para otimizar imagens do inventário no PocketBase, reduzindo tamanho e melhorando performance",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node optimize-inventory-images.js",
+    "debug": "node optimize-inventory-images.js --debug",
+    "test": "node optimize-inventory-images.js --debug",
+    "dev": "node --inspect optimize-inventory-images.js --debug"
+  },
+  "keywords": [
+    "image-optimization",
+    "pocketbase",
+    "sharp",
+    "inventory",
+    "automation",
+    "batch-processing",
+    "compression"
+  ],
+  "author": "Comum Checkout Team",
+  "license": "MIT",
+  "dependencies": {
+    "sharp": "^latest",
+    "pocketbase": "^latest",
+    "dotenv": "^latest"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "bin": {
+    "optimize-images": "./index.js"
+  }
+}
