@@ -1,13 +1,17 @@
 <script lang="ts">
 	import { items, getTotal, getSubtotal, clearCart } from '$lib/cart.svelte';
+	import { customerState, clearCustomerData, clearLocalStorage, getCustomerData } from '$lib/customer.svelte';
+	import { config } from '$lib/config';
 	import CartItem from './CartItem.svelte';
 	import DiscountInput from '../DiscountInput.svelte';
+	import CustomerForm from '../forms/CustomerForm.svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	const dispatch = createEventDispatcher<{ close: void }>();
 
 	const subtotal = $derived(getSubtotal());
 	const total = $derived(getTotal());
+	const canFinalize = $derived(customerState.isValid);
 
 	// Função para formatar moeda
 	function formatCurrency(value: number): string {
@@ -15,6 +19,75 @@
 			style: 'currency',
 			currency: 'BRL'
 		}).format(value);
+	}
+
+	// Função para limpar carrinho e dados do cliente
+	function clearAll() {
+		clearCart();
+		clearCustomerData();
+		clearLocalStorage();
+	}
+
+	// Função para finalizar compra
+	async function finalizePurchase() {
+		if (!canFinalize) return;
+
+		try {
+			// Coletar dados da compra
+			const customerData = getCustomerData();
+			const purchaseData = {
+				items: items.map(item => ({
+					id: item.product.id,
+					codigo: item.product.codigo,
+					nome: item.product.nome,
+					preco: item.product.preco,
+					quantity: item.quantity
+				})),
+				subtotal: subtotal,
+				total: total,
+				customer: customerData,
+				timestamp: new Date().toISOString(),
+				paymentMethod: 'pendente' // TODO: Implementar seleção de forma de pagamento
+			};
+
+			console.log('Finalizando compra:', purchaseData);
+
+			// Integração com n8n para processar a venda
+			if (config.n8nWebhookUrl) {
+				const response = await fetch(config.n8nWebhookUrl, {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						action: 'process_sale',
+						data: purchaseData
+					})
+				});
+
+				if (!response.ok) {
+					throw new Error(`Erro na integração: ${response.status}`);
+				}
+
+				const result = await response.json();
+				console.log('Resposta n8n:', result);
+			}
+
+			// Simular marcação de itens como vendidos no PocketBase
+			// TODO: Implementar integração real com PocketBase
+			for (const item of items) {
+				console.log(`Marcando item ${item.product.codigo} como vendido`);
+			}
+
+			alert('Compra finalizada com sucesso!');
+
+			// Limpar carrinho e dados após sucesso
+			clearAll();
+
+		} catch (error) {
+			console.error('Erro ao finalizar compra:', error);
+			alert('Erro ao finalizar compra. Tente novamente.');
+		}
 	}
 </script>
 
@@ -41,7 +114,7 @@
 		</p>
 	{:else}
 		<!-- Lista de itens do carrinho -->
-		<div class="flex-grow overflow-y-auto mb-4">
+		<div class="flex flex-grow flex-col gap-y-2 overflow-y-auto mb-4">
 			{#each items as item (item.product.id)}
 				<CartItem {item} />
 			{/each}
@@ -68,12 +141,23 @@
 			</div>
 		</div>
 
+		<!-- Formulário de dados do cliente -->
+		<div class="mt-4">
+			<CustomerForm />
+		</div>
+
 		<!-- Botões de ação -->
 		<div class="space-y-2 mt-6">
-			<button class="btn btn-primary w-full">
+			<button
+				class="btn btn-primary w-full {!canFinalize ? 'btn-disabled' : ''}"
+				disabled={!canFinalize}
+				title={!canFinalize ? 'Preencha os dados obrigatórios para finalizar' : ''}
+				aria-label="Finalizar compra"
+				onclick={finalizePurchase}
+			>
 				💳 Finalizar Compra
 			</button>
-			<button class="btn btn-ghost w-full" onclick={() => clearCart()}>
+			<button class="btn btn-ghost w-full" onclick={clearAll} aria-label="Esvaziar carrinho">
 				🗑️ Esvaziar Carrinho
 			</button>
 		</div>

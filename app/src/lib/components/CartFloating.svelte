@@ -1,15 +1,47 @@
 <script lang="ts">
-	// Ação 2: Importar o estado do carrinho
-	import cart from '$lib/cart.svelte';
+	// Importar o estado do carrinho usando named exports
+	import { items } from '$lib/cart.svelte';
+	import CartView from '$lib/components/cart/CartView.svelte';
+
+	const itemCount = $derived(items.length);
+	let showCart = $state(false);
+
+	function toggleCart() {
+		showCart = !showCart;
+
+		if (showCart) {
+			// Desabilitar scroll da página
+			document.body.style.overflow = 'hidden';
+		} else {
+			// Habilitar scroll da página
+			document.body.style.overflow = '';
+		}
+	}
+
+	function closeCart() {
+		showCart = false;
+		// Habilitar scroll da página
+		document.body.style.overflow = '';
+	}
+
+	function handleBackdropClick() {
+		closeCart();
+	}
+
+	function handleKeydown(event: KeyboardEvent) {
+		if (event.key === 'Escape') {
+			closeCart();
+		}
+	}
 </script>
 
-<!-- Ação 4: Lógica de exibição condicional -->
-{#if cart.state.items.length > 0}
+<!-- Lógica de exibição condicional -->
+{#if itemCount > 0}
 <div class="fixed bottom-4 right-4 z-50">
-  <a href="/cart" class="btn btn-primary btn-circle btn-lg">
+  <button class="btn btn-primary btn-circle btn-lg" onclick={toggleCart} aria-label="Abrir carrinho">
     <div class="indicator">
-      <!-- Ação 3: Exibição dinâmica do número de itens -->
-      <span class="indicator-item badge badge-secondary">{cart.state.items.length}</span>
+      <!-- Exibição dinâmica do número de itens -->
+      <span class="indicator-item badge badge-secondary">{itemCount}</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-6 w-6"
@@ -25,6 +57,26 @@
         />
       </svg>
     </div>
-  </a>
+  </button>
+</div>
+{/if}
+
+<!-- Modal do carrinho -->
+{#if showCart}
+<div class="fixed inset-0 z-50 flex" onkeydown={handleKeydown} role="dialog" aria-modal="true" tabindex="0">
+  <!-- Backdrop -->
+  <button
+    class="fixed inset-0 bg-neutral/50 cursor-default"
+    onclick={handleBackdropClick}
+    aria-label="Fechar carrinho"
+    tabindex="-1"
+  ></button>
+
+  <!-- Painel do carrinho -->
+  <div class="fixed right-0 top-0 h-full bg-base-100 shadow-2xl z-50 flex flex-col">
+    <div class="flex-1 overflow-y-auto">
+      <CartView on:close={closeCart} />
+    </div>
+  </div>
 </div>
 {/if}
