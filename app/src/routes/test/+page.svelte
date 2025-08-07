@@ -35,6 +35,24 @@
 			path: '/test/discount-flow',
 			description: 'Testa o fluxo completo de aplicação de descontos (fixo e percentual).',
 			phase: 'FEAT-03'
+		},
+		{
+			name: 'CustomerForm',
+			path: '/test/customer-form',
+			description: 'Testa o formulário de coleta de dados do cliente (nome e e-mail) com validações.',
+			phase: 'FEAT-04'
+		},
+		{
+			name: 'PaymentSelector',
+			path: '/test/payment-selector',
+			description: 'Testa o componente de seleção de forma de pagamento (Débito, Crédito, PIX) e integração com CartView.',
+			phase: 'FEAT-05'
+		},
+		{
+			name: 'Finalização de Compra',
+			path: '/test/purchase-finalization',
+			description: 'Testa o fluxo completo de finalização de venda com integração PocketBase, n8n e sistema de notificações.',
+			phase: 'FEAT-06'
 		}
 	];
 </script>
@@ -82,6 +100,15 @@
 			<li>
 				<strong>Fluxo de Desconto:</strong> Testa a aplicação de descontos fixos e percentuais no
 				carrinho.
+			</li>
+			<li>
+				<strong>CustomerForm:</strong> Testa o formulário de coleta de dados do cliente com validações de nome e e-mail.
+			</li>
+			<li>
+				<strong>PaymentSelector:</strong> Testa a seleção de formas de pagamento e integração com o fluxo de checkout.
+			</li>
+			<li>
+				<strong>Finalização de Compra:</strong> Testa o processo completo de finalização com PocketBase, n8n, notificações e tratamento de erros.
 			</li>
 		</ul>
 	</div>

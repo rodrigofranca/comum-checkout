@@ -2,16 +2,24 @@
 	import { items, getTotal, getSubtotal, clearCart } from '$lib/cart.svelte';
 	import { customerState, clearCustomerData, clearLocalStorage, getCustomerData } from '$lib/customer.svelte';
 	import { config } from '$lib/config';
+	import { markItemsAsSold, saveSale } from '$lib/pocketbase';
 	import CartItem from './CartItem.svelte';
 	import DiscountInput from '../DiscountInput.svelte';
 	import CustomerForm from '../forms/CustomerForm.svelte';
+	import PaymentSelector from './PaymentSelector.svelte';
+	import toast from '../notifications/toast.svelte';
 	import { createEventDispatcher } from 'svelte';
+
+	type PaymentMethod = 'debito' | 'credito' | 'pix';
 
 	const dispatch = createEventDispatcher<{ close: void }>();
 
 	const subtotal = $derived(getSubtotal());
 	const total = $derived(getTotal());
-	const canFinalize = $derived(customerState.isValid);
+	
+	let selectedPayment = $state<PaymentMethod | undefined>(undefined);
+	let isProcessing = $state(false);
+	const canFinalize = $derived(customerState.isValid && selectedPayment !== undefined && !isProcessing);
 
 	// Função para formatar moeda
 	function formatCurrency(value: number): string {
@@ -26,11 +34,14 @@
 		clearCart();
 		clearCustomerData();
 		clearLocalStorage();
+		selectedPayment = undefined;
 	}
 
 	// Função para finalizar compra
 	async function finalizePurchase() {
 		if (!canFinalize) return;
+
+		isProcessing = true;
 
 		try {
 			// Coletar dados da compra
@@ -38,55 +49,117 @@
 			const purchaseData = {
 				items: items.map(item => ({
 					id: item.product.id,
-					codigo: item.product.codigo,
-					nome: item.product.nome,
-					preco: item.product.preco,
+					product_id: item.product.product_id || item.product.codigo,
+					title: item.product.title || item.product.nome,
+					price: item.product.price || item.product.preco,
 					quantity: item.quantity
 				})),
 				subtotal: subtotal,
 				total: total,
 				customer: customerData,
 				timestamp: new Date().toISOString(),
-				paymentMethod: 'pendente' // TODO: Implementar seleção de forma de pagamento
+				paymentMethod: selectedPayment || 'pendente'
+			};
+
+			// Estrutura de dados para salvar no PocketBase
+			const saleData = {
+				items: purchaseData.items,
+				subtotal: purchaseData.subtotal,
+				total: purchaseData.total,
+				customer_name: customerData.name,
+				customer_email: customerData.email,
+				wants_receipt: customerData.wantsReceipt,
+				payment_method: selectedPayment || 'pendente',
+				sale_timestamp: purchaseData.timestamp
 			};
 
 			console.log('Finalizando compra:', purchaseData);
 
+			let n8nSuccess = true;
+			let pocketbaseSuccess = true;
+			let saleId: string | undefined;
+
+			// Salvar a venda no PocketBase primeiro
+			try {
+				const saleResult = await saveSale(saleData);
+				
+				if (saleResult.success) {
+					saleId = saleResult.saleId;
+					console.log('Venda salva com ID:', saleId);
+				} else {
+					pocketbaseSuccess = false;
+					console.error('Erro ao salvar venda:', saleResult.error);
+				}
+			} catch (error) {
+				pocketbaseSuccess = false;
+				console.error('Erro ao salvar venda:', error);
+			}
+
 			// Integração com n8n para processar a venda
 			if (config.n8nWebhookUrl) {
-				const response = await fetch(config.n8nWebhookUrl, {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify({
-						action: 'process_sale',
-						data: purchaseData
-					})
-				});
+				try {
+					const response = await fetch(config.n8nWebhookUrl, {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							action: 'process_sale',
+							data: { ...purchaseData, saleId }
+						})
+					});
 
-				if (!response.ok) {
-					throw new Error(`Erro na integração: ${response.status}`);
+					if (!response.ok) {
+						throw new Error(`Erro HTTP ${response.status}: ${response.statusText}`);
+					}
+
+					const result = await response.json();
+					console.log('Resposta n8n:', result);
+				} catch (error) {
+					n8nSuccess = false;
+					console.error('Erro na integração n8n:', error);
+					// Continua o processo mesmo com erro do n8n
 				}
-
-				const result = await response.json();
-				console.log('Resposta n8n:', result);
 			}
 
-			// Simular marcação de itens como vendidos no PocketBase
-			// TODO: Implementar integração real com PocketBase
-			for (const item of items) {
-				console.log(`Marcando item ${item.product.codigo} como vendido`);
+			// Marcar itens como vendidos no PocketBase
+			try {
+				const updateResult = await markItemsAsSold(items);
+				
+				if (!updateResult.success) {
+					pocketbaseSuccess = false;
+					console.warn('Alguns itens não foram marcados como vendidos:', updateResult.errors);
+				}
+				
+				console.log(`${updateResult.updatedCount}/${items.length} itens marcados como vendidos`);
+			} catch (error) {
+				pocketbaseSuccess = false;
+				console.error('Erro na atualização PocketBase:', error);
 			}
 
-			alert('Compra finalizada com sucesso!');
+			// Notificação de sucesso baseada no resultado das operações
+			if (n8nSuccess && pocketbaseSuccess) {
+				toast.addToast('Compra finalizada com sucesso! Recibo enviado e inventário atualizado.', 'success', 5000);
+			} else if (n8nSuccess && !pocketbaseSuccess) {
+				toast.addToast('Compra registrada com sucesso! Recibo enviado, mas houve problemas ao atualizar o inventário.', 'warning', 6000);
+			} else if (!n8nSuccess && pocketbaseSuccess) {
+				toast.addToast('Compra finalizada! Inventário atualizado, mas houve problemas no envio do recibo.', 'warning', 6000);
+			} else {
+				toast.addToast('Compra processada com problemas. Verifique o inventário e entre em contato se necessário.', 'error', 8000);
+			}
 
-			// Limpar carrinho e dados após sucesso
+			// Limpar carrinho e dados após sucesso (mesmo com erros parciais)
 			clearAll();
 
 		} catch (error) {
-			console.error('Erro ao finalizar compra:', error);
-			alert('Erro ao finalizar compra. Tente novamente.');
+			console.error('Erro crítico ao finalizar compra:', error);
+			if (error instanceof Error) {
+				toast.addToast(`Erro ao finalizar compra: ${error.message}. Tente novamente.`, 'error', 8000);
+			} else {
+				toast.addToast('Erro desconhecido ao finalizar compra. Tente novamente.', 'error', 8000);
+			}
+		} finally {
+			isProcessing = false;
 		}
 	}
 </script>
@@ -146,18 +219,28 @@
 			<CustomerForm />
 		</div>
 
+		<!-- Seleção de forma de pagamento -->
+		<div class="mt-4">
+			<PaymentSelector bind:selected={selectedPayment} />
+		</div>
+
 		<!-- Botões de ação -->
 		<div class="space-y-2 mt-6">
 			<button
-				class="btn btn-primary w-full {!canFinalize ? 'btn-disabled' : ''}"
+				class="btn btn-primary w-full {!canFinalize ? 'btn-disabled' : ''} {isProcessing ? 'loading' : ''}"
 				disabled={!canFinalize}
-				title={!canFinalize ? 'Preencha os dados obrigatórios para finalizar' : ''}
+				title={!canFinalize ? (isProcessing ? 'Processando compra...' : 'Preencha os dados obrigatórios e selecione a forma de pagamento para finalizar') : ''}
 				aria-label="Finalizar compra"
 				onclick={finalizePurchase}
 			>
-				💳 Finalizar Compra
+				{#if isProcessing}
+					<span class="loading loading-spinner loading-sm"></span>
+					Processando...
+				{:else}
+					💳 Finalizar Compra
+				{/if}
 			</button>
-			<button class="btn btn-ghost w-full" onclick={clearAll} aria-label="Esvaziar carrinho">
+			<button class="btn btn-ghost w-full" disabled={isProcessing} onclick={clearAll} aria-label="Esvaziar carrinho">
 				🗑️ Esvaziar Carrinho
 			</button>
 		</div>
