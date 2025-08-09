@@ -5,10 +5,11 @@
 <script lang="ts">
   import type { CartItem } from '$lib/types';
   import { removeItem, updateItemQuantity } from '$lib/cart.svelte';
+  import pb from '$lib/pocketbase';
 
   // Props
-  type Props = { item: CartItem };
-  const { item }: Props = $props();
+  type Props = { item: CartItem; disabled?: boolean };
+  const { item, disabled = false }: Props = $props();
 
   // Formatação de moeda
   const formatCurrency = (value: number) => {
@@ -19,13 +20,34 @@
   };
 
   // Cálculo do subtotal
-  const subtotal = $derived(item.quantity * item.product.preco);
+  const subtotal = $derived(item.quantity * (item.product.price || item.product.preco));
 
   // Estado do botão de remoção
   let isRemoving = $state(false);
 
+  // Função para obter URL da imagem
+  function getImageUrl() {
+    // Primeiro tenta usar o novo campo images
+    if (item.product.images && item.product.images.length > 0) {
+      const recordLike = {
+        id: item.product.id,
+        collectionId: 'pbc_1475816973', // inventory collection ID
+        collectionName: 'inventory'
+      };
+      return pb.files.getURL(recordLike, item.product.images[0]);
+    }
+    
+    // Fallback para foto_url legacy
+    if (item.product.foto_url) {
+      return item.product.foto_url;
+    }
+    
+    return null;
+  }
+
   // Funções de interação
   function handleQuantityChange(delta: number) {
+    if (disabled) return;
     const newQuantity = item.quantity + delta;
     if (newQuantity <= 0) {
       handleRemove();
@@ -35,6 +57,7 @@
   }
 
   function handleRemove() {
+    if (disabled) return;
     isRemoving = true;
     setTimeout(() => {
       removeItem(item.product.id);
@@ -54,11 +77,12 @@
       <div class="flex items-start gap-4">
         <!-- Área da imagem -->
         <div class="w-20 h-20 flex-shrink-0 rounded-box bg-base-200 overflow-hidden">
-          {#if item.product.foto_url}
+          {#if getImageUrl()}
             <img
-              src={item.product.foto_url}
-              alt={item.product.nome}
+              src={getImageUrl()}
+              alt={item.product.title || item.product.nome}
               class="w-full h-full object-cover"
+              loading="lazy"
             />
           {:else}
             <div class="w-full h-full flex items-center justify-center text-base-content/50">
@@ -69,8 +93,8 @@
 
         <!-- Informações do produto (Nome e Código) -->
         <div class="flex-grow">
-          <h3 class="text-base font-medium text-base-content leading-tight">{item.product.nome}</h3>
-          <p class="text-sm text-base-content/70 mt-1">Código: {item.product.codigo}</p>
+          <h3 class="text-base font-medium text-base-content leading-tight">{item.product.title || item.product.nome}</h3>
+          <p class="text-sm text-base-content/70 mt-1">Código: {item.product.product_id || item.product.codigo}</p>
         </div>
       </div>
 
@@ -80,7 +104,7 @@
         <div class="text-sm">
           <p class="text-base-content/70">
             Preço unitário:
-            <span class="font-medium text-base-content">{formatCurrency(item.product.preco)}</span>
+            <span class="font-medium text-base-content">{formatCurrency(item.product.price || item.product.preco)}</span>
           </p>
           <p class="text-base-content">
             Subtotal:
@@ -95,17 +119,17 @@
             <button
               class="btn btn-sm join-item btn-outline"
               onclick={() => handleQuantityChange(-1)}
-              disabled={isRemoving}
+              disabled={isRemoving || disabled}
             >
               <span class="text-lg">−</span>
             </button>
-            <span class="btn btn-sm join-item btn-ghost no-animation min-w-[2.5rem]">
+            <span class="btn btn-sm join-item btn-ghost no-animation min-w-[2.5rem] {disabled ? 'opacity-60' : ''}">
               {item.quantity}
             </span>
             <button
               class="btn btn-sm join-item btn-outline"
               onclick={() => handleQuantityChange(1)}
-              disabled={isRemoving}
+              disabled={isRemoving || disabled}
             >
               <span class="text-lg">+</span>
             </button>
@@ -115,7 +139,7 @@
           <button
             class="btn btn-sm btn-error btn-outline gap-2"
             onclick={handleRemove}
-            disabled={isRemoving}
+            disabled={isRemoving || disabled}
           >
             {#if isRemoving}
               <span class="loading loading-spinner loading-xs"></span>

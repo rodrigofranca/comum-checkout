@@ -128,8 +128,13 @@
 		initializeForTests();
 		showCart = true;
 		addLog('INSTRUÇÃO: Complete dados e clique em "Finalizar Compra"');
-		addLog('OBSERVAR: Botão deve mostrar spinner e texto "Processando..."');
-		addLog('OBSERVAR: Botão "Esvaziar Carrinho" deve ficar desabilitado');
+		addLog('OBSERVAR: Botão deve mostrar spinner e mensagens específicas:');
+		addLog('  - "Validando dados..."');
+		addLog('  - "Salvando venda..."');
+		addLog('  - "Enviando recibo..."');
+		addLog('  - "Atualizando inventário..."');
+		addLog('  - "Finalizando..."');
+		addLog('OBSERVAR: Todos os controles devem ficar desabilitados durante processamento');
 	}
 
 	function testErrorHandling() {
@@ -199,8 +204,107 @@
 		}, 3000);
 	}
 
+	// ========== NOVOS TESTES FEAT-06 ==========
+
+	function testConfirmationModal() {
+		addLog('Testando modal de confirmação (FEAT-06)...');
+		initializeForTests();
+		showCart = true;
+		addLog('INSTRUÇÃO: Preencha dados do cliente e selecione forma de pagamento');
+		addLog('INSTRUÇÃO: Clique em "Finalizar Compra"');
+		addLog('OBSERVAR: Modal de confirmação deve aparecer com:');
+		addLog('  - Resumo completo dos itens');
+		addLog('  - Subtotal e desconto (se houver)');
+		addLog('  - Dados do cliente');
+		addLog('  - Forma de pagamento selecionada');
+		addLog('  - Botões "Voltar para Editar" e "Confirmar Compra"');
+		addLog('TESTAR: Clicar "Voltar" deve retornar ao carrinho sem processar');
+		addLog('TESTAR: Clicar "Confirmar" deve iniciar o processamento');
+	}
+
+	function testSuccessScreen() {
+		addLog('Testando tela de sucesso (FEAT-06)...');
+		initializeForTests();
+		showCart = true;
+		addLog('INSTRUÇÃO: Complete uma compra até o final');
+		addLog('OBSERVAR: Tela de sucesso deve aparecer com:');
+		addLog('  - Ícone de check animado');
+		addLog('  - Mensagem "Compra Finalizada!"');
+		addLog('  - ID da venda (últimos 8 dígitos)');
+		addLog('  - Total, forma de pagamento, data/hora');
+		addLog('  - Status do recibo (enviado ou não)');
+		addLog('  - Botão "Nova Venda"');
+		addLog('OBSERVAR: Deve fechar automaticamente após 10 segundos');
+		addLog('TESTAR: Botão "Nova Venda" deve limpar carrinho e fechar tela');
+	}
+
+	function testInterfaceDisabling() {
+		addLog('Testando desabilitação da interface durante processamento (FEAT-06)...');
+		initializeForTests();
+		showCart = true;
+		addLog('INSTRUÇÃO: Complete dados e inicie finalização');
+		addLog('OBSERVAR durante processamento:');
+		addLog('  - Campos do formulário devem ficar desabilitados');
+		addLog('  - Opções de pagamento devem ficar desabilitadas');
+		addLog('  - Controles de quantidade dos itens desabilitados');
+		addLog('  - Botão "Esvaziar Carrinho" desabilitado');
+		addLog('  - Interface com aparência visual desabilitada (opacity reduzida)');
+		addLog('VERIFICAR: Após conclusão, interface deve retornar ao normal');
+	}
+
+	function testErrorRecovery() {
+		addLog('Testando sistema de recuperação de erros (FEAT-06)...');
+		addLog('OBSERVAR: Sistema deve preservar dados em caso de erro');
+		
+		// Simular erro temporário
+		const originalFetch = window.fetch;
+		let callCount = 0;
+		
+		window.fetch = async (input, init) => {
+			callCount++;
+			if (callCount === 1) {
+				throw new Error('Erro de conexão simulado');
+			}
+			return originalFetch(input, init);
+		};
+		
+		initializeForTests();
+		showCart = true;
+		addLog('INSTRUÇÃO: Complete dados e finalize compra');
+		addLog('ESPERADO: Erro deve aparecer com:');
+		addLog('  - Alert vermelho com mensagem de erro');
+		addLog('  - Botão "Tentar Novamente"');
+		addLog('  - Dados do cliente e carrinho preservados');
+		addLog('TESTAR: Clicar "Tentar Novamente" deve funcionar');
+		
+		setTimeout(() => {
+			window.fetch = originalFetch;
+			addLog('Simulação de erro removida - próximo retry deve funcionar');
+		}, 5000);
+	}
+
+	function testValidationMessages() {
+		addLog('Testando mensagens de validação melhoradas (FEAT-06)...');
+		clearCart();
+		clearCustomerData();
+		showCart = true;
+		addLog('TESTANDO validações com mensagens específicas:');
+		addLog('');
+		addLog('TESTE 1: Carrinho vazio');
+		addLog('  - INSTRUÇÃO: Tente finalizar com carrinho vazio');
+		addLog('  - ESPERADO: "Carrinho está vazio. Adicione produtos antes de finalizar."');
+		addLog('');
+		addLog('TESTE 2: Forma de pagamento não selecionada');
+		addLog('  - INSTRUÇÃO: Adicione produtos mas não selecione pagamento');
+		addLog('  - ESPERADO: "Selecione uma forma de pagamento para continuar."');
+		addLog('');
+		addLog('TESTE 3: Dados do cliente inválidos');
+		addLog('  - INSTRUÇÃO: Selecione "receber recibo" mas deixe email vazio');
+		addLog('  - ESPERADO: "Preencha corretamente os dados do cliente."');
+	}
+
 	function testCompleteWorkflow() {
-		addLog('Executando teste de fluxo completo...');
+		addLog('Executando teste de fluxo completo FEAT-06...');
 		addLog('');
 		
 		addLog('=== INICIALIZANDO TESTE COMPLETO ===');
@@ -208,20 +312,30 @@
 		addLog('Carrinho preparado com produtos de teste');
 		
 		addLog('');
-		addLog('=== INSTRUÇÕES PARA TESTE MANUAL ===');
-		addLog('1. Abrir CartView');
-		addLog('2. Verificar produtos no carrinho');
-		addLog('3. Preencher dados do cliente (nome e email)');
-		addLog('4. Selecionar forma de pagamento');
-		addLog('5. Observar habilitação do botão');
-		addLog('6. Clicar em "Finalizar Compra"');
-		addLog('7. Observar estado de loading');
-		addLog('8. Verificar toast de resultado');
-		addLog('9. Confirmar limpeza do carrinho');
+		addLog('=== INSTRUÇÕES PARA TESTE MANUAL COMPLETO ===');
+		addLog('1. Verificar produtos no carrinho');
+		addLog('2. Preencher dados do cliente (nome e email)');
+		addLog('3. Selecionar forma de pagamento');
+		addLog('4. Observar habilitação do botão "Finalizar Compra"');
+		addLog('5. Clicar em "Finalizar Compra"');
+		addLog('6. MODAL DE CONFIRMAÇÃO deve aparecer:');
+		addLog('   - Verificar resumo completo');
+		addLog('   - Testar botão "Voltar para Editar" (opcional)');
+		addLog('   - Clicar "Confirmar Compra"');
+		addLog('7. PROCESSAMENTO deve mostrar:');
+		addLog('   - Interface desabilitada');
+		addLog('   - Mensagens progressivas de loading');
+		addLog('   - Spinner no botão');
+		addLog('8. TELA DE SUCESSO deve aparecer:');
+		addLog('   - Ícone de check');
+		addLog('   - Resumo da venda');
+		addLog('   - Status do recibo');
+		addLog('   - Auto-close em 10 segundos ou clique "Nova Venda"');
+		addLog('9. Verificar limpeza completa do carrinho');
 		
 		showCart = true;
 		addLog('');
-		addLog('CartView aberto para execução do teste completo');
+		addLog('CartView aberto para execução do teste completo FEAT-06');
 	}
 
 	// ========== BATERIAS DE TESTE ==========
@@ -252,18 +366,46 @@
 		addLog('Executando testes de validação...');
 		addLog('');
 		
-		testEmptyCartValidation();
+		testValidationMessages();
+		
+		setTimeout(() => {
+			testEmptyCartValidation();
+		}, 2000);
 		
 		setTimeout(() => {
 			testCustomerDataValidation();
-		}, 3000);
+		}, 5000);
 		
 		setTimeout(() => {
 			testPaymentValidation();
-		}, 6000);
+		}, 8000);
 		
 		addLog('');
 		addLog('Testes de validação concluídos!');
+	}
+
+	function runFeat06Tests() {
+		clearLog();
+		addLog('Executando testes específicos do FEAT-06...');
+		addLog('');
+		
+		addLog('=== TESTANDO NOVAS FUNCIONALIDADES ===');
+		testConfirmationModal();
+		
+		setTimeout(() => {
+			testInterfaceDisabling();
+		}, 3000);
+		
+		setTimeout(() => {
+			testSuccessScreen();
+		}, 6000);
+		
+		setTimeout(() => {
+			testErrorRecovery();
+		}, 9000);
+		
+		addLog('');
+		addLog('Testes FEAT-06 iniciados! Execute cada um seguindo as instruções.');
 	}
 
 	// Funções de controle manual
@@ -288,8 +430,25 @@
 <div class="container mx-auto p-8 max-w-6xl">
 	<!-- Título -->
 	<div class="mb-8">
-		<h1 class="text-4xl font-bold text-base-content mb-2">Teste: Finalização de Compra (FEAT-06)</h1>
-		<p class="text-base-content/70 text-lg">Validação completa do processo de finalização de venda com integração PocketBase e n8n</p>
+		<h1 class="text-4xl font-bold text-base-content mb-2">Teste: Finalização de Compra (FEAT-06) ✨</h1>
+		<p class="text-base-content/70 text-lg">Validação do fluxo POC robusto: Modal de Confirmação → Loading Progressivo → Tela de Sucesso</p>
+		<div class="mt-3">
+			<span class="badge badge-success gap-2">
+				✅ Modal Confirmação
+			</span>
+			<span class="badge badge-success gap-2">
+				⏳ Loading Específico
+			</span>
+			<span class="badge badge-success gap-2">
+				🎉 Tela Sucesso
+			</span>
+			<span class="badge badge-success gap-2">
+				🔒 Interface Disabled
+			</span>
+			<span class="badge badge-success gap-2">
+				🔄 Error Recovery
+			</span>
+		</div>
 	</div>
 
 	<!-- Controles de teste -->
@@ -303,7 +462,10 @@
 				✅ Testes de Validação
 			</button>
 			<button class="btn btn-accent btn-lg" onclick={testCompleteWorkflow}>
-				🔄 Fluxo Completo
+				🔄 Fluxo Completo FEAT-06
+			</button>
+			<button class="btn btn-success btn-lg" onclick={runFeat06Tests}>
+				⭐ Testes FEAT-06
 			</button>
 			<button class="btn btn-info btn-lg" onclick={toggleCart}>
 				{showCart ? '📤' : '📥'} {showCart ? 'Fechar' : 'Abrir'} CartView
@@ -370,6 +532,11 @@
 			<button class="btn btn-outline" onclick={testErrorHandling}>❌ Tratamento Erros</button>
 			<button class="btn btn-outline" onclick={testPocketBaseIntegration}>🗄️ PocketBase</button>
 			<button class="btn btn-outline" onclick={testToastNotifications}>🔔 Notificações</button>
+			<button class="btn btn-outline btn-success" onclick={testConfirmationModal}>✅ Modal Confirmação</button>
+			<button class="btn btn-outline btn-success" onclick={testSuccessScreen}>🎉 Tela Sucesso</button>
+			<button class="btn btn-outline btn-success" onclick={testInterfaceDisabling}>🔒 Desabilitar UI</button>
+			<button class="btn btn-outline btn-success" onclick={testErrorRecovery}>🔄 Recovery Erros</button>
+			<button class="btn btn-outline btn-success" onclick={testValidationMessages}>📝 Validações</button>
 		</div>
 	</div>
 

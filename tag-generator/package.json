@@ -1,0 +1,27 @@
+{
+  "name": "tag-generator",
+  "version": "1.0.0",
+  "description": "Gerador de etiquetas para produtos com QR codes a partir do Google Sheets",
+  "main": "generate-from-sheets.js",
+  "type": "module",
+  "scripts": {
+    "generate": "node generate-from-sheets.js",
+    "start": "python3 -m http.server 8080",
+    "dev": "python3 -m http.server 8080 --bind localhost"
+  },
+  "keywords": [
+    "qr-code",
+    "etiquetas",
+    "google-sheets",
+    "pocketbase"
+  ],
+  "author": "Comum Checkout Team",
+  "license": "MIT",
+  "dependencies": {
+    "googleapis": "^latest",
+    "dotenv": "^latest"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

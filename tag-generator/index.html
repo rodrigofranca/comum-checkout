@@ -4,13 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerador de Etiquetas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="no-print">
         <h1>Gerador de Etiquetas</h1>
-        <p>Cole o seu JSON abaixo. O JSON deve ser uma lista de objetos, onde cada objeto representa um produto e deve conter as chaves "name", "price" e "url".</p>
-        <textarea id="json-input" rows="10" placeholder='[
+        
+        <!-- Seção Google Sheets -->
+        <div class="sheets-section">
+            <h2>Opção 1A: Gerar a partir de Dados Locais (Recomendado)</h2>
+            <p>Carregue etiquetas de dados já sincronizados localmente.</p>
+            <p><small>💡 Execute primeiro: <code>cd tag-generator && node generate-from-sheets.js</code></small></p>
+            
+            <button id="load-local-btn" class="primary-btn">Carregar Dados Locais</button>
+        </div>
+        
+        <div class="sheets-section">
+            <h2>Opção 1B: Gerar Direto do Google Sheets</h2>
+            <p>Gere etiquetas automaticamente da planilha de estoque configurada.</p>
+            <p><strong>Planilha:</strong> <code>1DIJuHTaSZ_d3nsFxxKec_WCyaPlSDGGNhwk3FyQNt5E</code></p>
+            
+            <div class="input-group">
+                <label for="api-key-input">API Key do Google:</label>
+                <input type="text" id="api-key-input" placeholder="AIzaSyC..." class="config-input">
+                <small>Obtenha em: <a href="https://console.cloud.google.com/apis/credentials" target="_blank">Google Cloud Console</a> (habilite Google Sheets API)</small>
+            </div>
+            
+            <button id="generate-from-sheets-btn" class="secondary-btn">Gerar Etiquetas do Sheets</button>
+        </div>
+        
+        <hr>
+        
+        <!-- Seção JSON (mantida para compatibilidade) -->
+        <div class="json-section">
+            <h2>Opção 2: Gerar a partir de JSON</h2>
+            <p>Cole o seu JSON abaixo. O JSON deve ser uma lista de objetos, onde cada objeto representa um produto e deve conter as chaves "name", "price" e "url".</p>
+            <textarea id="json-input" rows="10" placeholder='[
     {
         "name": "Produto de Exemplo 1",
         "price": "R$ 19,99",
@@ -22,7 +54,8 @@
         "url": "https://example.com/produto2"
     }
 ]'></textarea>
-        <button id="generate-btn">Gerar Etiquetas</button>
+            <button id="generate-btn">Gerar Etiquetas do JSON</button>
+        </div>
     </div>
 
     <div id="labels-container"></div>

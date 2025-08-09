@@ -1,0 +1,462 @@
+[
+  {
+    "productId": "skd-bscboc",
+    "price": "R$ 130.00",
+    "name": "camisa verde turquesa abstrata"
+  },
+  {
+    "productId": "skd-z9cpc5",
+    "price": "R$ 130.00",
+    "name": "camisa listrada ondas colorida"
+  },
+  {
+    "productId": "skd-jwiyat",
+    "price": "R$ 120.00",
+    "name": "camisa azul clara CGC algodão"
+  },
+  {
+    "productId": "skd-4hf5q0",
+    "price": "R$ 130.00",
+    "name": "camisa floral amarela vintage"
+  },
+  {
+    "productId": "skd-hf0kx4",
+    "price": "R$ 180.00",
+    "name": "camisa branca acetinada estampa cordas vintage"
+  },
+  {
+    "productId": "skd-v05yej",
+    "price": "R$ 130.00",
+    "name": "camisa jeans liocel CGC vintage"
+  },
+  {
+    "productId": "skd-5kh52k",
+    "price": "R$ 120.00",
+    "name": "camisa listrada azul branca plus"
+  },
+  {
+    "productId": "skd-wkm70y",
+    "price": "R$ 150.00",
+    "name": "camisa listrada boxy"
+  },
+  {
+    "productId": "skd-haqx24",
+    "price": "R$ 180.00",
+    "name": "camisa bicolor paisley vintage"
+  },
+  {
+    "productId": "skd-y6en3k",
+    "price": "R$ 180.00",
+    "name": "camisa preta bordada vintage"
+  },
+  {
+    "productId": "skd-s2sjae",
+    "price": "R$ 120.00",
+    "name": "camisa azul bordada stroke"
+  },
+  {
+    "productId": "skd-vg7wu6",
+    "price": "R$ 180.00",
+    "name": "camisa geométrica CGC vintage"
+  },
+  {
+    "productId": "skd-0emfh4",
+    "price": "R$ 180.00",
+    "name": "camisa estampada vintage"
+  },
+  {
+    "productId": "skd-0x58zm",
+    "price": "R$ 90.00",
+    "name": "camisa CGC mostarda renda vintage"
+  },
+  {
+    "productId": "skd-7piz9r",
+    "price": "R$ 110.00",
+    "name": "camisa preta veludo hidrogenio vintag"
+  },
+  {
+    "productId": "skd-hvsxxl",
+    "price": "R$ 130.00",
+    "name": "camisa boxy laranja listras vintage"
+  },
+  {
+    "productId": "skd-16pzo7",
+    "price": "R$ 90.00",
+    "name": "camisa CGC vermelha transparente vintage"
+  },
+  {
+    "productId": "skd-zgu1ui",
+    "price": "R$ 150.00",
+    "name": "camisa branca transparente amassada vintage CGC"
+  },
+  {
+    "productId": "skd-xctmua",
+    "price": "R$ 100.00",
+    "name": "camisa algodão listrada umen"
+  },
+  {
+    "productId": "skd-1rlke8",
+    "price": "R$ 140.00",
+    "name": "camisa cinza listrada social contemporâneo"
+  },
+  {
+    "productId": "skd-7w1rdl",
+    "price": "R$ 250.00",
+    "name": "camisa xadrez flanela hp ouro"
+  },
+  {
+    "productId": "skd-ks5m9d",
+    "price": "R$ 80.00",
+    "name": "camisa azul lisa algodão"
+  },
+  {
+    "productId": "skd-404uom",
+    "price": "R$ 90.00",
+    "name": "camisa azul xadrez algodão"
+  },
+  {
+    "productId": "skd-k05mwj",
+    "price": "R$ 130.00",
+    "name": "camisa social cinza"
+  },
+  {
+    "productId": "skd-4yd2l3",
+    "price": "R$ 140.00",
+    "name": "camisa social branca"
+  },
+  {
+    "productId": "skd-f1hxlk",
+    "price": "R$ 140.00",
+    "name": "camisa bege estampa geométrica"
+  },
+  {
+    "productId": "skd-msunb0",
+    "price": "R$ 180.00",
+    "name": "camisa azul risca de giz polo wear"
+  },
+  {
+    "productId": "skd-36fosh",
+    "price": "R$ 120.00",
+    "name": "camisa cinza social manga longa"
+  },
+  {
+    "productId": "sku-zuostf",
+    "price": "R$ 90.00",
+    "name": "camisa upcyclcing gola acetinada"
+  },
+  {
+    "productId": "sku-578bke",
+    "price": "R$ 90.00",
+    "name": "camisa upcyclcing franzido listrada"
+  },
+  {
+    "productId": "sku-ltb372",
+    "price": "R$ 160.00",
+    "name": "camisa vermelha com preto gola bordada"
+  },
+  {
+    "productId": "sku-xem9gl",
+    "price": "R$ 150.00",
+    "name": "camisa linho salmão plissado"
+  },
+  {
+    "productId": "sku-w9m2y8",
+    "price": "R$ 130.00",
+    "name": "camisa branca brooksfield"
+  },
+  {
+    "productId": "sku-bz1yzr",
+    "price": "R$ 120.00",
+    "name": "camisa gap listrada"
+  },
+  {
+    "productId": "sku-kt116g",
+    "price": "R$ 130.00",
+    "name": "camisa florida linho"
+  },
+  {
+    "productId": "sku-lb060a",
+    "price": "R$ 110.00",
+    "name": "camisa azul listrada"
+  },
+  {
+    "productId": "sku-dxtxx1",
+    "price": "R$ 160.00",
+    "name": "camisa vintage scene"
+  },
+  {
+    "productId": "sku-56li0c",
+    "price": "R$ 130.00",
+    "name": "camisa laranja vintage"
+  },
+  {
+    "productId": "sku-c74iq8",
+    "price": "R$ 80.00",
+    "name": "camisa florida"
+  },
+  {
+    "productId": "sku-jpu22h",
+    "price": "R$ 90.00",
+    "name": "camisa vinho preston field"
+  },
+  {
+    "productId": "sku-6urgqw",
+    "price": "R$ 140.00",
+    "name": "camisa roxa floral vintage CGC"
+  },
+  {
+    "productId": "sku-lp3m6w",
+    "price": "R$ 140.00",
+    "name": "camisa azul manga longa"
+  },
+  {
+    "productId": "sku-lplw98",
+    "price": "R$ 70.00",
+    "name": "camisa azul manga curta"
+  },
+  {
+    "productId": "sku-dtha5t",
+    "price": "R$ 110.00",
+    "name": "camisa mostarda"
+  },
+  {
+    "productId": "sku-fwjp8r",
+    "price": "R$ 130.00",
+    "name": "camisa roxa e rosa"
+  },
+  {
+    "productId": "sku-y9giqj",
+    "price": "R$ 140.00",
+    "name": "camisa geométrica roxa"
+  },
+  {
+    "productId": "sku-2pvwz1",
+    "price": "R$ 180.00",
+    "name": "camisa veludo preta listras"
+  },
+  {
+    "productId": "sku-z3ttn8",
+    "price": "R$ 80.00",
+    "name": "camisa florida branca e azul"
+  },
+  {
+    "productId": "sku-pn2ud2",
+    "price": "R$ 230.00",
+    "name": "camisa richards xadrez"
+  },
+  {
+    "productId": "sku-ajbab1",
+    "price": "R$ 90.00",
+    "name": "camisa xadrez billie"
+  },
+  {
+    "productId": "sku-9w9kk8",
+    "price": "R$ 120.00",
+    "name": "camisa bege river"
+  },
+  {
+    "productId": "sku-n5s16r",
+    "price": "R$ 120.00",
+    "name": "camisa algodão bordada"
+  },
+  {
+    "productId": "sku-nf3qp0",
+    "price": "R$ 100.00",
+    "name": "camisa verde textura"
+  },
+  {
+    "productId": "sku-ytsgzh",
+    "price": "R$ 120.00",
+    "name": "camisa CGC amarela estampa peixes"
+  },
+  {
+    "productId": "sku-osl9tg",
+    "price": "R$ 130.00",
+    "name": "camisa algodão egípcio quadriculada"
+  },
+  {
+    "productId": "sku-3coltp",
+    "price": "R$ 160.00",
+    "name": "camisa creme algodão acabamento reforçado"
+  },
+  {
+    "productId": "sku-apswml",
+    "price": "R$ 220.00",
+    "name": "camisa CGC xadrez e jeans"
+  },
+  {
+    "productId": "sku-g9j43t",
+    "price": "R$ 180.00",
+    "name": "camisa nova CGC creme com textura"
+  },
+  {
+    "productId": "sku-8qn8ev",
+    "price": "R$ 250.00",
+    "name": "camisa pescador funcional algodão"
+  },
+  {
+    "productId": "sku-edbpeu",
+    "price": "R$ 150.00",
+    "name": "camisa floral azul e branca algodão"
+  },
+  {
+    "productId": "sku-2f4qma",
+    "price": "R$ 110.00",
+    "name": "camisa branca algodão Billabong"
+  },
+  {
+    "productId": "sku-ua22fs",
+    "price": "R$ 160.00",
+    "name": "camisa boxy listrada preta e verde Dorinho’s"
+  },
+  {
+    "productId": "sku-b0hqg9",
+    "price": "R$ 130.00",
+    "name": "camisa estampada laranja com marrom"
+  },
+  {
+    "productId": "sku-nxt535",
+    "price": "R$ 140.00",
+    "name": "camisa branca algodão Brooksfield manga curta"
+  },
+  {
+    "productId": "sku-63vtgi",
+    "price": "R$ 240.00",
+    "name": "camisa CGC vintage algodão Delhi com bolsos utilitária"
+  },
+  {
+    "productId": "sku-69j6we",
+    "price": "R$ 80.00",
+    "name": "camisa azul linho algodão reta ombro duplo"
+  },
+  {
+    "productId": "sku-ms997b",
+    "price": "R$ 140.00",
+    "name": "camisa amarela mostarda reta gola button-down"
+  },
+  {
+    "productId": "sku-educts",
+    "price": "R$ 180.00",
+    "name": "camisa CGC branca reta gola clássica"
+  },
+  {
+    "productId": "sku-40xqwv",
+    "price": "R$ 160.00",
+    "name": "camisa listrada cropped algodão Wolens"
+  },
+  {
+    "productId": "sku-2l1a5p",
+    "price": "R$ 100.00",
+    "name": "camisa listrada branca e azul upcycling franzido"
+  },
+  {
+    "productId": "sku-25n5ac",
+    "price": "R$ 130.00",
+    "name": "camisa lisa azul boxy upcycling Remo Fenut"
+  },
+  {
+    "productId": "sku-fwzxa2",
+    "price": "R$ 150.00",
+    "name": "camisa azul upcycling franzido Siberian"
+  },
+  {
+    "productId": "sku-bro3au",
+    "price": "R$ 180.00",
+    "name": "camisa listrada algodão boxy"
+  },
+  {
+    "productId": "sku-vuvuxc",
+    "price": "R$ 130.00",
+    "name": "camisa boxy azul upcycling poliéster"
+  },
+  {
+    "productId": "sku-u8g900",
+    "price": "R$ 230.00",
+    "name": "camisa vintage marrom bordado upcycling poliéster"
+  },
+  {
+    "productId": "sku-h9fab8",
+    "price": "R$ 180.00",
+    "name": "camisa vintage marrom floral paisley punho duplo"
+  },
+  {
+    "productId": "sku-e1pyj4",
+    "price": "R$ 140.00",
+    "name": "camisa xadrez preta branca botões de pressão Stivanelli"
+  },
+  {
+    "productId": "sku-94cxkl",
+    "price": "R$ 200.00",
+    "name": "camisa CGC algodão off-white mullet Tucano"
+  },
+  {
+    "productId": "sku-t4tizh",
+    "price": "R$ 120.00",
+    "name": "camisa azul bordado autoral onda urbana"
+  },
+  {
+    "productId": "sku-11i0r0",
+    "price": "R$ 160.00",
+    "name": "camisa azul franzido upcycling"
+  },
+  {
+    "productId": "sku-ivrorr",
+    "price": "R$ 140.00",
+    "name": "camisa xadrez amarela"
+  },
+  {
+    "productId": "sku-u8fsu4",
+    "price": "R$ 150.00",
+    "name": "camisa richards azul lisa"
+  },
+  {
+    "productId": "sku-x9uww5",
+    "price": "R$ 150.00",
+    "name": "camisa richards azul xadrez"
+  },
+  {
+    "productId": "sku-55bcuk",
+    "price": "R$ 80.00",
+    "name": "ecobag upcycling sortida comum"
+  },
+  {
+    "productId": "sku-wimywn",
+    "price": "R$ 130.00",
+    "name": "ecobag gravata bn upcycling"
+  },
+  {
+    "productId": "sku-1vmlug",
+    "price": "R$ 140.00",
+    "name": "camisa umen upcycling"
+  },
+  {
+    "productId": "sku-ktlxyz",
+    "price": "R$ 218.00",
+    "name": "moletom galáxia de margaridas bn upcycling"
+  },
+  {
+    "productId": "sku-wyd21l",
+    "price": "R$ 320.00",
+    "name": "jaqueta galáctico bn upcycling"
+  },
+  {
+    "productId": "sku-dwjgkm",
+    "price": "R$ 120.00",
+    "name": "ecobag galáctico bn upcycling"
+  },
+  {
+    "productId": "sku-0et40f",
+    "price": "R$ 220.00",
+    "name": "moletom laranja galáctico bn upcycling"
+  },
+  {
+    "productId": "sku-5x7hm6",
+    "price": "R$ 80.00",
+    "name": "ecobag upcycling sortida comum"
+  },
+  {
+    "productId": "sku-2kgpgm",
+    "price": "R$ 80.00",
+    "name": "ecobag upcycling sortida comum"
+  }
+]

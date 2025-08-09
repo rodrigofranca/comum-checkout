@@ -2,6 +2,12 @@
 	import { onMount } from 'svelte';
 	import { customerState, setCustomerData, saveToLocalStorage, loadFromLocalStorage } from '$lib/customer.svelte';
 	
+	interface Props {
+		disabled?: boolean;
+	}
+
+	let { disabled = false }: Props = $props();
+	
 	// Estado derivado para facilitar o acesso
 	const data = $derived(customerState.data);
 	const emailError = $derived(customerState.emailError);
@@ -51,6 +57,7 @@
 			class="input input-bordered focus:input-primary"
 			value={data.name}
 			oninput={updateName}
+			disabled={disabled}
 		/>
 	</div>
 	
@@ -62,6 +69,7 @@
 				class="checkbox checkbox-primary"
 				checked={data.wantsReceipt}
 				onchange={toggleReceipt}
+				disabled={disabled}
 			/>
 			<span class="label-text">Deseja receber recibo por email?</span>
 		</label>
@@ -83,6 +91,7 @@
 				value={data.email}
 				oninput={updateEmail}
 				required
+				disabled={disabled}
 			/>
 			{#if emailError}
 				<div class="label">

@@ -1,0 +1,27 @@
+{
+  "name": "upload-images",
+  "version": "1.0.0",
+  "description": "Script para fazer upload de imagens de pasta local para o PocketBase",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node upload-images.js",
+    "debug": "node upload-images.js --debug"
+  },
+  "keywords": [
+    "pocketbase",
+    "upload",
+    "image-upload",
+    "batch-processing",
+    "automation"
+  ],
+  "author": "Comum Checkout Team",
+  "license": "MIT",
+  "dependencies": {
+    "pocketbase": "^0.21.5",
+    "dotenv": "^16.4.5"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "name": "download-images",
+  "version": "1.0.0",
+  "description": "Script para baixar imagens do Google Drive para pasta local, organizadas por conjunto",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node download-images.js",
+    "debug": "node download-images.js --debug"
+  },
+  "keywords": [
+    "google-drive",
+    "download",
+    "image-processing",
+    "batch-download",
+    "automation"
+  ],
+  "author": "Comum Checkout Team",
+  "license": "MIT",
+  "dependencies": {
+    "googleapis": "^latest",
+    "dotenv": "^latest"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

@@ -52,3 +52,25 @@ export interface Sale {
   payment_method?: string;
   sale_timestamp: string;
 }
+
+export interface ConfirmationData {
+  items: CartItem[];
+  total: number;
+  customer: CustomerData;
+  paymentMethod: string;
+}
+
+export interface ProcessingState {
+  isProcessing: boolean;
+  currentStep: string;
+  error?: string;
+}
+
+export interface CompletedSale {
+  id: string;
+  total: number;
+  paymentMethod: string;
+  customer: CustomerData;
+  timestamp: string;
+  receiptSent: boolean;
+}

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import ProductCard from '$lib/components/ProductCard.svelte';
-	import type { RecordModel } from 'pocketbase';
+	import type { Product } from '$lib/types';
 
-	export let products: RecordModel[] = [];
+	export let products: Product[] = [];
 </script>
 
 {#if products.length > 0}

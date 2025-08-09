@@ -5,13 +5,15 @@
 
 	interface Props {
 		selected?: PaymentMethod;
+		disabled?: boolean;
 	}
 
-	let { selected = $bindable() }: Props = $props();
+	let { selected = $bindable(), disabled = false }: Props = $props();
 
 	const dispatch = createEventDispatcher<{ change: PaymentMethod }>();
 
 	function handleSelection(method: PaymentMethod) {
+		if (disabled) return;
 		selected = method;
 		dispatch('change', method);
 	}
@@ -22,19 +24,20 @@
 	
 	<div class="grid grid-cols-1 gap-2">
 		<!-- Débito -->
-		<label class="cursor-pointer">
+		<label class="{disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}">
 			<input
 				type="radio"
 				name="payment"
 				value="debito"
 				class="sr-only"
 				onchange={() => handleSelection('debito')}
+				disabled={disabled}
 			/>
 			<div
 				class="flex items-center gap-3 p-3 rounded-lg border-2 transition-all
 				{selected === 'debito' 
 					? 'border-primary bg-primary/10 text-primary' 
-					: 'border-base-300 hover:border-primary/50'}"
+					: disabled ? 'border-base-300 bg-base-200/50' : 'border-base-300 hover:border-primary/50'}"
 			>
 				<div class="text-xl">💳</div>
 				<span class="font-medium">Cartão de Débito</span>
@@ -42,19 +45,20 @@
 		</label>
 
 		<!-- Crédito -->
-		<label class="cursor-pointer">
+		<label class="{disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}">
 			<input
 				type="radio"
 				name="payment"
 				value="credito"
 				class="sr-only"
 				onchange={() => handleSelection('credito')}
+				disabled={disabled}
 			/>
 			<div
 				class="flex items-center gap-3 p-3 rounded-lg border-2 transition-all
 				{selected === 'credito' 
 					? 'border-primary bg-primary/10 text-primary' 
-					: 'border-base-300 hover:border-primary/50'}"
+					: disabled ? 'border-base-300 bg-base-200/50' : 'border-base-300 hover:border-primary/50'}"
 			>
 				<div class="text-xl">💎</div>
 				<span class="font-medium">Cartão de Crédito</span>
@@ -62,19 +66,20 @@
 		</label>
 
 		<!-- PIX -->
-		<label class="cursor-pointer">
+		<label class="{disabled ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}">
 			<input
 				type="radio"
 				name="payment"
 				value="pix"
 				class="sr-only"
 				onchange={() => handleSelection('pix')}
+				disabled={disabled}
 			/>
 			<div
 				class="flex items-center gap-3 p-3 rounded-lg border-2 transition-all
 				{selected === 'pix' 
 					? 'border-primary bg-primary/10 text-primary' 
-					: 'border-base-300 hover:border-primary/50'}"
+					: disabled ? 'border-base-300 bg-base-200/50' : 'border-base-300 hover:border-primary/50'}"
 			>
 				<div class="text-xl">⚡</div>
 				<span class="font-medium">PIX</span>

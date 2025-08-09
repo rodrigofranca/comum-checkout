@@ -49,9 +49,9 @@
 			phase: 'FEAT-05'
 		},
 		{
-			name: 'Finalização de Compra',
+			name: 'Finalização de Compra (FEAT-06)',
 			path: '/test/purchase-finalization',
-			description: 'Testa o fluxo completo de finalização de venda com integração PocketBase, n8n e sistema de notificações.',
+			description: 'Testa o fluxo POC robusto: Modal de Confirmação → Loading Progressivo → Tela de Sucesso. Inclui validações, error recovery e desabilitação de interface.',
 			phase: 'FEAT-06'
 		}
 	];

@@ -1,0 +1,27 @@
+{
+  "name": "optimize-local-images",
+  "version": "1.0.0",
+  "description": "Script para otimizar imagens de uma pasta local e salvá-las em nova pasta",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node optimize-local-images.js",
+    "debug": "node optimize-local-images.js --debug"
+  },
+  "keywords": [
+    "image-optimization",
+    "sharp",
+    "batch-processing",
+    "compression",
+    "automation"
+  ],
+  "author": "Comum Checkout Team",
+  "license": "MIT",
+  "dependencies": {
+    "sharp": "^latest",
+    "dotenv": "^latest"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
