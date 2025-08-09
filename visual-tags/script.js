@@ -16,7 +16,7 @@ async function loadProducts() {
         if (!response.ok) {
             throw new Error(`Erro ao carregar produtos: ${response.status}`);
         }
-        
+
         const data = await response.json();
         return data;
     } catch (error) {
@@ -35,7 +35,7 @@ function getImagePath(productId) {
         `${productId}_1-md.jpg`,         // Variação 2
         `${productId}.1-md.jpg`          // Outra variação
     ];
-    
+
     // Retorna o caminho da primeira imagem (principal)
     return `${CONFIG.imagesPath}${productId}/${imageVariations[0]}`;
 }
@@ -48,14 +48,14 @@ function createLabel(product) {
     // Container para imagem
     const imageContainer = document.createElement('div');
     imageContainer.className = 'product-image';
-    
+
     // Tenta carregar a imagem
     const img = document.createElement('img');
     const imagePath = getImagePath(product.productId);
-    
+
     img.src = imagePath;
     img.alt = product.name;
-    
+
     // Se a imagem não carregar, tenta variações ou mostra placeholder
     img.onerror = () => {
         // Tenta outras variações da imagem
@@ -64,23 +64,23 @@ function createLabel(product) {
             `${product.productId}_1-md.jpg`,
             `${product.productId}_antes-md.jpg`
         ];
-        
+
         let currentIndex = 0;
         const tryNextVariation = () => {
             if (currentIndex < variations.length) {
                 const newImg = document.createElement('img');
                 newImg.src = `${CONFIG.imagesPath}${product.productId}/${variations[currentIndex]}`;
                 newImg.alt = product.name;
-                
+
                 newImg.onload = () => {
                     imageContainer.appendChild(newImg);
                 };
-                
+
                 newImg.onerror = () => {
                     currentIndex++;
                     tryNextVariation();
                 };
-                
+
                 currentIndex++;
             } else {
                 // Se nenhuma imagem funcionar, mostra placeholder
@@ -88,10 +88,10 @@ function createLabel(product) {
                 imageContainer.classList.add('no-image');
             }
         };
-        
+
         tryNextVariation();
     };
-    
+
     img.onload = () => {
         imageContainer.appendChild(img);
     };
@@ -113,9 +113,9 @@ function createLabel(product) {
 
     // Montagem da etiqueta
     label.appendChild(imageContainer);
-    label.appendChild(name);
-    label.appendChild(price);
     label.appendChild(productIdDiv);
+    label.appendChild(price);
+    label.appendChild(name);
 
     return label;
 }
@@ -135,8 +135,6 @@ function renderLabels(products) {
         container.appendChild(label);
     });
 
-    // Mostra botão de imprimir
-    document.getElementById('print-labels').style.display = 'inline-block';
 }
 
 // Função para mostrar loading
@@ -154,11 +152,11 @@ function showError(message) {
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
     const loadBtn = document.getElementById('load-products');
-    const printBtn = document.getElementById('print-labels');
+    // const printBtn = document.getElementById('print-labels');
 
     loadBtn.addEventListener('click', async () => {
         showLoading();
-        
+
         try {
             products = await loadProducts();
             renderLabels(products);
@@ -168,9 +166,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    printBtn.addEventListener('click', () => {
-        window.print();
-    });
+    // printBtn.addEventListener('click', () => {
+    //     window.print();
+    // });
 });
 
 // Auto-load se houver produtos em cache ou parâmetro na URL
