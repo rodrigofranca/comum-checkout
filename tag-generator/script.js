@@ -272,46 +272,69 @@ document.getElementById('generate-from-sheets-btn').addEventListener('click', as
 
 // Event listener original para JSON (mantido para compatibilidade)
 document.getElementById('generate-btn').addEventListener('click', () => {
+    console.log('Botão "Gerar Etiquetas do JSON" clicado!');
     const jsonInput = document.getElementById('json-input').value;
     const labelsContainer = document.getElementById('labels-container');
 
+    console.log('Container encontrado:', labelsContainer);
+
     // Limpa as etiquetas existentes
     labelsContainer.innerHTML = '';
+    console.log('Container limpo');
+
+    console.log('Conteúdo do textarea:', jsonInput);
+
+    if (!jsonInput.trim()) {
+        alert('Por favor, cole um JSON válido no campo de texto.');
+        return;
+    }
 
     let products;
     try {
         products = JSON.parse(jsonInput);
+        console.log('JSON parseado com sucesso:', products);
         if (!Array.isArray(products)) {
             throw new Error("O JSON precisa ser um array de produtos.");
         }
     } catch (error) {
+        console.error('Erro ao fazer parse do JSON:', error);
         alert(`Erro no JSON: ${error.message}`);
         return;
     }
 
-    products.forEach(product => {
-        if (!product.name || !product.price || !product.url) {
-            console.warn("Produto ignorado por não conter 'name', 'price' ou 'url':", product);
+    console.log('Iniciando criação de etiquetas...');
+
+    products.forEach((product, index) => {
+        console.log(`Processando produto ${index + 1}:`, product);
+
+        // Aceita tanto formato antigo (name, price, url) quanto novo (productId, price, name)
+        if (!product.name || !product.price) {
+            console.warn("Produto ignorado por não conter 'name' e 'price':", product);
             return;
         }
 
         const label = document.createElement('div');
         label.className = 'label';
+        console.log('Label criada:', label);
 
         const qrCodeContainer = document.createElement('div');
         qrCodeContainer.className = 'qr-code';
 
         // Gera o QR Code apenas com product_id para usar no checkout
         try {
+            console.log('Tentando gerar QR Code para produto:', product);
             const qr = qrcode(0, 'L');
-            // Usa product_id se disponível, senão extrai da URL
-            const productId = product.product_id || product.url.split('=').pop();
+            // Usa productId se disponível, senão product_id, senão extrai da URL se existir
+            const productId = product.productId || product.product_id || (product.url ? product.url.split('=').pop() : 'produto-sem-id');
+            console.log('Product ID extraído:', productId);
             qr.addData(productId);
             qr.make();
             qrCodeContainer.innerHTML = qr.createImgTag(4);
+            console.log('QR Code gerado com sucesso');
         } catch (e) {
             console.error("Erro ao gerar QR Code:", e);
             qrCodeContainer.textContent = 'Erro no QR Code';
+            // Mesmo com erro no QR, continue criando a etiqueta
         }
 
         const name = document.createElement('div');
@@ -323,9 +346,27 @@ document.getElementById('generate-btn').addEventListener('click', () => {
         // Remove decimais .00 do preço
         price.textContent = product.price.replace(',00', '').replace('.00', '');
 
-        label.appendChild(qrCodeContainer);
-        label.appendChild(price);
-        label.appendChild(name);
-        labelsContainer.appendChild(label);
+        // Product ID (usando o mesmo que foi extraído para o QR Code)
+        const productIdDiv = document.createElement('div');
+        productIdDiv.className = 'product-id';
+        const productId = product.productId || product.product_id || (product.url ? product.url.split('=').pop() : 'produto-sem-id');
+        productIdDiv.textContent = productId;
+
+        try {
+            label.appendChild(qrCodeContainer);
+            label.appendChild(price);
+            label.appendChild(productIdDiv);
+            label.appendChild(name);
+            console.log('Elementos adicionados à label. Label HTML:', label.outerHTML.substring(0, 100) + '...');
+            console.log('Adicionando label ao container...');
+            labelsContainer.appendChild(label);
+            console.log('Label adicionada com sucesso! Container agora tem:', labelsContainer.children.length, 'filhos');
+        } catch (error) {
+            console.error('Erro ao adicionar elementos:', error);
+        }
     });
+
+    console.log(`${products.length} etiquetas geradas com sucesso do JSON!`);
+    console.log('Estado final do container:', labelsContainer);
+    console.log('HTML do container:', labelsContainer.innerHTML.substring(0, 200) + '...');
 });
